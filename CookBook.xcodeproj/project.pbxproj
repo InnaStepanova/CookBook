@@ -13,6 +13,8 @@
 		02AD8B6429AB6C2F0042DAAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */; };
 		02AD8B6729AB6C2F0042DAAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */; };
 		02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B6E29ACDA510042DAAC /* Resources.swift */; };
+		353EB41829AE646400224635 /* RecipeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EB41729AE646400224635 /* RecipeScreenViewController.swift */; };
+		353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		02AD8B6629AB6C2F0042DAAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02AD8B6829AB6C2F0042DAAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02AD8B6E29ACDA510042DAAC /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		353EB41729AE646400224635 /* RecipeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreenViewController.swift; sourceTree = "<group>"; };
+		353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreenTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
 				02AD8B5E29AB6C2C0042DAAC /* TabBarController.swift */,
+				353EB41729AE646400224635 /* RecipeScreenViewController.swift */,
+				353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */,
 				02AD8B6E29ACDA510042DAAC /* Resources.swift */,
 				02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */,
 				02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */,
@@ -141,6 +147,8 @@
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,
 				02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */,
+				353EB41829AE646400224635 /* RecipeScreenViewController.swift in Sources */,
+				353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
