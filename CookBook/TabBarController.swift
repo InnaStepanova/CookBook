@@ -35,7 +35,7 @@ class TabBarController: UITabBarController{
         tabBar.layer.borderWidth = 1
         tabBar.layer.masksToBounds = true
         
-        let mainViewController = UIViewController()
+        let mainViewController = MaineViewController()
         let searchViewController = UIViewController()
         let cuizineCollectionViewController = UIViewController()
         let favoritesViewController = UIViewController()
@@ -50,13 +50,13 @@ class TabBarController: UITabBarController{
                                                      tag: Tabs.main.rawValue)
         searchViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.search,
                                                        image: Resources.Image.TabBar.search,
-                                                     tag: Tabs.search.rawValue)
+                                                       tag: Tabs.search.rawValue)
         cuizineCollectionViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.cuisine,
                                                                   image: Resources.Image.TabBar.cuisine,
-                                                     tag: Tabs.cuisine.rawValue)
+                                                                  tag: Tabs.cuisine.rawValue)
         favoritesViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.favourites,
                                                           image: Resources.Image.TabBar.favourites,
-                                                     tag: Tabs.favourites.rawValue)
+                                                          tag: Tabs.favourites.rawValue)
         
         setViewControllers([
             mainNavigation,
