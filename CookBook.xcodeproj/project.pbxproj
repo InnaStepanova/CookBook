@@ -13,6 +13,9 @@
 		02AD8B6429AB6C2F0042DAAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */; };
 		02AD8B6729AB6C2F0042DAAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */; };
 		02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B6E29ACDA510042DAAC /* Resources.swift */; };
+		353EB41829AE646400224635 /* RecipeScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EB41729AE646400224635 /* RecipeScreenVC.swift */; };
+		353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */; };
+		359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359C619529AE9266007AED8D /* RecipeScreenVC+TableView.swift */; };
 		5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */; };
 		5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */; };
 		5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */; };
@@ -27,6 +30,9 @@
 		02AD8B6629AB6C2F0042DAAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02AD8B6829AB6C2F0042DAAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02AD8B6E29ACDA510042DAAC /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		353EB41729AE646400224635 /* RecipeScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreenVC.swift; sourceTree = "<group>"; };
+		353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreenTableViewCell.swift; sourceTree = "<group>"; };
+		359C619529AE9266007AED8D /* RecipeScreenVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeScreenVC+TableView.swift"; sourceTree = "<group>"; };
 		5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesViewController.swift; sourceTree = "<group>"; };
 		5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionView.swift; sourceTree = "<group>"; };
 		5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -66,12 +72,23 @@
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
 				02AD8B5E29AB6C2C0042DAAC /* TabBarController.swift */,
+				359C619429AE9122007AED8D /* RecipeScreen */,
 				02AD8B6E29ACDA510042DAAC /* Resources.swift */,
 				02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */,
 				02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */,
 				02AD8B6829AB6C2F0042DAAC /* Info.plist */,
 			);
 			path = CookBook;
+			sourceTree = "<group>";
+		};
+		359C619429AE9122007AED8D /* RecipeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				353EB41729AE646400224635 /* RecipeScreenVC.swift */,
+				359C619529AE9266007AED8D /* RecipeScreenVC+TableView.swift */,
+				353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */,
+			);
+			path = RecipeScreen;
 			sourceTree = "<group>";
 		};
 		5FE2CA3E29AE26CC009A708D /* WorldDishesModule */ = {
@@ -182,9 +199,12 @@
 				5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */,
 				02AD8B5F29AB6C2C0042DAAC /* TabBarController.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
+				359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */,
 				5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,
 				02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */,
+				353EB41829AE646400224635 /* RecipeScreenVC.swift in Sources */,
+				353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
