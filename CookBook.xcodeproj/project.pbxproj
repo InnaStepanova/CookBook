@@ -13,6 +13,7 @@
 		02AD8B6429AB6C2F0042DAAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */; };
 		02AD8B6729AB6C2F0042DAAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */; };
 		02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B6E29ACDA510042DAAC /* Resources.swift */; };
+		E259A06429AE44E400F4C649 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E259A06329AE44E400F4C649 /* StartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		02AD8B6629AB6C2F0042DAAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02AD8B6829AB6C2F0042DAAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02AD8B6E29ACDA510042DAAC /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		E259A06329AE44E400F4C649 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */,
 				02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */,
 				02AD8B6829AB6C2F0042DAAC /* Info.plist */,
+				E259A06329AE44E400F4C649 /* StartViewController.swift */,
 			);
 			path = CookBook;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E259A06429AE44E400F4C649 /* StartViewController.swift in Sources */,
 				02AD8B5F29AB6C2C0042DAAC /* TabBarController.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,

@@ -13,6 +13,7 @@ final class StartViewController: UIViewController {
     var startButton: UIButton = {
         var button = UIButton()
         button = UIButton(type: .roundedRect)
+        button.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
         button.setTitle("Get Started", for: .normal)
         button.setTitle("Start!", for: .highlighted)
         button.layer.cornerRadius = 8
@@ -128,6 +129,10 @@ final class StartViewController: UIViewController {
         gradientLayer.colors = [colorTop, colorBot]
         gradientLayer.locations = [0.5, 1]
         view.layer.addSublayer(gradientLayer)
+    }
+    
+    @objc func startButtonPressed(sender: UIButton) {
+        print("Button Pressed")
     }
 }
 
