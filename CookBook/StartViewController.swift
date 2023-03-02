@@ -132,7 +132,8 @@ final class StartViewController: UIViewController {
     }
     
     @objc func startButtonPressed(sender: UIButton) {
-        print("Button Pressed")
+        let tabBarVC = UINavigationController(rootViewController: TabBarController())
+        present(tabBarVC, animated: true)
     }
 }
 
