@@ -24,6 +24,7 @@
 		5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */; };
 		5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */; };
 		5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */; };
+		E259A06429AE44E400F4C649 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E259A06329AE44E400F4C649 /* StartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesViewController.swift; sourceTree = "<group>"; };
 		5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionView.swift; sourceTree = "<group>"; };
 		5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionViewCell.swift; sourceTree = "<group>"; };
+		E259A06329AE44E400F4C649 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */,
 				02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */,
 				02AD8B6829AB6C2F0042DAAC /* Info.plist */,
+				E259A06329AE44E400F4C649 /* StartViewController.swift */,
 			);
 			path = CookBook;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				352709DC29AFACB70061FFE5 /* RecipeBrains.swift in Sources */,
 				5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */,
 				5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */,
+				E259A06429AE44E400F4C649 /* StartViewController.swift in Sources */,
 				02AD8B5F29AB6C2C0042DAAC /* TabBarController.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
 				352709E129AFACDB0061FFE5 /* MaineViewController.swift in Sources */,
