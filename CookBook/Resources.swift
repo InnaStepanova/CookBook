@@ -21,6 +21,7 @@ enum Resources {
             static let cuisine = UIImage(systemName: "globe.central.south.asia")
             static let favourites = UIImage(systemName: "heart.fill")
         }
+        static let defaultImage = UIImage(named: "cheaf")
     }
     
     enum Strings {

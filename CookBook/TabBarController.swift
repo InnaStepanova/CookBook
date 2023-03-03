@@ -16,6 +16,7 @@ enum Tabs: Int {
 
 class TabBarController: UITabBarController{
     
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -44,7 +45,7 @@ class TabBarController: UITabBarController{
         let searchNavigation = UINavigationController(rootViewController: searchViewController)
         let cuizineNavigation = UINavigationController(rootViewController: cuizineCollectionViewController)
         let favoritesNavigation = UINavigationController(rootViewController: favoritesViewController)
-        
+
         mainViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.main,
                                                      image: Resources.Image.TabBar.main,
                                                      tag: Tabs.main.rawValue)

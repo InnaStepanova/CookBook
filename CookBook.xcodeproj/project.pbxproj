@@ -13,6 +13,7 @@
 		02AD8B6429AB6C2F0042DAAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6329AB6C2F0042DAAC /* Assets.xcassets */; };
 		02AD8B6729AB6C2F0042DAAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02AD8B6529AB6C2F0042DAAC /* LaunchScreen.storyboard */; };
 		02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B6E29ACDA510042DAAC /* Resources.swift */; };
+		02FA2CAA29AFE915008483AD /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA2CA929AFE915008483AD /* ImageManager.swift */; };
 		352709DB29AFACB70061FFE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709D829AFACB70061FFE5 /* Recipe.swift */; };
 		352709DC29AFACB70061FFE5 /* RecipeBrains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709D929AFACB70061FFE5 /* RecipeBrains.swift */; };
 		352709DD29AFACB70061FFE5 /* AllRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709DA29AFACB70061FFE5 /* AllRecipes.swift */; };
@@ -36,6 +37,7 @@
 		02AD8B6629AB6C2F0042DAAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02AD8B6829AB6C2F0042DAAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02AD8B6E29ACDA510042DAAC /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		02FA2CA929AFE915008483AD /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		352709D829AFACB70061FFE5 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		352709D929AFACB70061FFE5 /* RecipeBrains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeBrains.swift; sourceTree = "<group>"; };
 		352709DA29AFACB70061FFE5 /* AllRecipes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRecipes.swift; sourceTree = "<group>"; };
@@ -81,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				352709D729AFACB70061FFE5 /* Models */,
-				352709DE29AFACCC0061FFE5 /* NetworkManager.swift */,
+				02FA2CA829AFE8EE008483AD /* Managers */,
 				352709E029AFACDB0061FFE5 /* MaineViewController.swift */,
 				5FE2CA3E29AE26CC009A708D /* WorldDishesModule */,
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
@@ -95,6 +97,15 @@
 				E259A06329AE44E400F4C649 /* StartViewController.swift */,
 			);
 			path = CookBook;
+			sourceTree = "<group>";
+		};
+		02FA2CA829AFE8EE008483AD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				352709DE29AFACCC0061FFE5 /* NetworkManager.swift */,
+				02FA2CA929AFE915008483AD /* ImageManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		352709D729AFACB70061FFE5 /* Models */ = {
@@ -233,6 +244,7 @@
 				5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,
 				02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */,
+				02FA2CAA29AFE915008483AD /* ImageManager.swift in Sources */,
 				352709DF29AFACCC0061FFE5 /* NetworkManager.swift in Sources */,
 				353EB41829AE646400224635 /* RecipeScreenVC.swift in Sources */,
 				353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */,
