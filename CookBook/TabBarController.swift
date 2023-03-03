@@ -61,9 +61,9 @@ class TabBarController: UITabBarController{
         
         setViewControllers([
             mainNavigation,
-            searchViewController,
-            cuizineCollectionViewController,
-            favoritesViewController
+            searchNavigation,
+            cuizineNavigation,
+            favoritesNavigation
         ], animated: true)
     }
 }

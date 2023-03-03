@@ -30,6 +30,7 @@ final class RecipeScreenViewController: UIViewController {
     //MARK: - Properties
     var recipe: Recipe? {
         didSet {
+            title = recipe?.title
             recipeName.text = recipe?.title
             ImageManager.shared.fetchImage(from: recipe?.image) { image in
                 self.topImage.image = image
