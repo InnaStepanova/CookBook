@@ -16,8 +16,7 @@ struct AllRecipes: Decodable {
 struct Result: Decodable {
     let id: Int
     let title: String
-    let image: String
-    let imageType: String
+    let image: String?
 }
 
 

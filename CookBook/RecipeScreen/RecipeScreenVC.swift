@@ -28,6 +28,14 @@ enum MockData {
 
 final class RecipeScreenViewController: UIViewController {
     //MARK: - Properties
+    var recipe: Recipe? {
+        didSet {
+            recipeName.text = recipe?.title
+            ImageManager.shared.fetchImage(from: recipe?.image) { image in
+                self.topImage.image = image
+            }
+        }
+    }
     private(set) var ingredientsList: [String: [(String, String)]] = [:]
     private(set) var sections: [String] = []
     private(set) var isTableShowsIngredient: Bool = true
@@ -192,6 +200,7 @@ final class RecipeScreenViewController: UIViewController {
     //MARK: - UIViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         recipeTableView.delegate = self
         recipeTableView.dataSource = self
         setupUI()
