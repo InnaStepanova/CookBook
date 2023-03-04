@@ -19,6 +19,11 @@
 		5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */; };
 		5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */; };
 		5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */; };
+		C5F3C96F29AF42AF00BA6003 /* CusineByEthnicity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C96E29AF42AF00BA6003 /* CusineByEthnicity.swift */; };
+		C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97329AF615200BA6003 /* recipeCell.swift */; };
+		C5F3C97629AF61D900BA6003 /* customHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97529AF61D900BA6003 /* customHeader.swift */; };
+		C5F3C97829AF623E00BA6003 /* favouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97729AF623E00BA6003 /* favouritesView.swift */; };
+		C5F3C97A29AF6B5E00BA6003 /* FavouritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97929AF6B5E00BA6003 /* FavouritesVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +41,11 @@
 		5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesViewController.swift; sourceTree = "<group>"; };
 		5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionView.swift; sourceTree = "<group>"; };
 		5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionViewCell.swift; sourceTree = "<group>"; };
+		C5F3C96E29AF42AF00BA6003 /* CusineByEthnicity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusineByEthnicity.swift; sourceTree = "<group>"; };
+		C5F3C97329AF615200BA6003 /* recipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recipeCell.swift; sourceTree = "<group>"; };
+		C5F3C97529AF61D900BA6003 /* customHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customHeader.swift; sourceTree = "<group>"; };
+		C5F3C97729AF623E00BA6003 /* favouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouritesView.swift; sourceTree = "<group>"; };
+		C5F3C97929AF6B5E00BA6003 /* FavouritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +62,7 @@
 		02AD8B4E29AB6C2C0042DAAC = {
 			isa = PBXGroup;
 			children = (
+				C5F3C97029AF42BD00BA6003 /* EthnicityCusine */,
 				02AD8B5929AB6C2C0042DAAC /* CookBook */,
 				02AD8B5829AB6C2C0042DAAC /* Products */,
 			);
@@ -123,6 +134,18 @@
 				5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C5F3C97029AF42BD00BA6003 /* EthnicityCusine */ = {
+			isa = PBXGroup;
+			children = (
+				C5F3C96E29AF42AF00BA6003 /* CusineByEthnicity.swift */,
+				C5F3C97329AF615200BA6003 /* recipeCell.swift */,
+				C5F3C97529AF61D900BA6003 /* customHeader.swift */,
+				C5F3C97729AF623E00BA6003 /* favouritesView.swift */,
+				C5F3C97929AF6B5E00BA6003 /* FavouritesVC.swift */,
+			);
+			path = EthnicityCusine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,13 +220,18 @@
 			files = (
 				5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */,
 				5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */,
+				C5F3C97629AF61D900BA6003 /* customHeader.swift in Sources */,
 				02AD8B5F29AB6C2C0042DAAC /* TabBarController.swift in Sources */,
+				C5F3C96F29AF42AF00BA6003 /* CusineByEthnicity.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
+				C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */,
 				359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */,
 				5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,
 				02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */,
+				C5F3C97A29AF6B5E00BA6003 /* FavouritesVC.swift in Sources */,
 				353EB41829AE646400224635 /* RecipeScreenVC.swift in Sources */,
+				C5F3C97829AF623E00BA6003 /* favouritesView.swift in Sources */,
 				353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
