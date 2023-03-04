@@ -17,6 +17,10 @@ class WorldDishesViewController: UIViewController {
         return label
     }()
 
+    
+    private let dishesCollection = WorldDishesCollectionView()
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -28,6 +32,7 @@ class WorldDishesViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(worldDishesLabel)
+        view.addSubview(dishesCollection)
     }
 }
 
@@ -36,8 +41,14 @@ extension WorldDishesViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
         
-            worldDishesLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            worldDishesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            worldDishesLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            worldDishesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            
+            dishesCollection.topAnchor.constraint(equalTo: worldDishesLabel.bottomAnchor, constant: 5),
+            dishesCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            dishesCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            dishesCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
 }
+
