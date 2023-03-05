@@ -38,8 +38,8 @@ class TabBarController: UITabBarController{
         
         let mainViewController = MaineViewController()
         let searchViewController = UIViewController()
-        let cuizineCollectionViewController = UIViewController()
-        let favoritesViewController = UIViewController()
+        let cuizineCollectionViewController = WorldDishesViewController()
+        let favoritesViewController = FavouritesVC()
         
         let mainNavigation = UINavigationController(rootViewController: mainViewController)
         let searchNavigation = UINavigationController(rootViewController: searchViewController)

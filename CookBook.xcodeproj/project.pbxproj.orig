@@ -25,12 +25,15 @@
 		5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */; };
 		5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */; };
 		5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */; };
+<<<<<<< HEAD
 		E259A06429AE44E400F4C649 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E259A06329AE44E400F4C649 /* StartViewController.swift */; };
+=======
 		C5F3C96F29AF42AF00BA6003 /* CusineByEthnicity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C96E29AF42AF00BA6003 /* CusineByEthnicity.swift */; };
 		C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97329AF615200BA6003 /* recipeCell.swift */; };
 		C5F3C97629AF61D900BA6003 /* customHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97529AF61D900BA6003 /* customHeader.swift */; };
 		C5F3C97829AF623E00BA6003 /* favouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97729AF623E00BA6003 /* favouritesView.swift */; };
 		C5F3C97A29AF6B5E00BA6003 /* FavouritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F3C97929AF6B5E00BA6003 /* FavouritesVC.swift */; };
+>>>>>>> Dannil
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,12 +57,15 @@
 		5FE2CA3F29AE2718009A708D /* WorldDishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesViewController.swift; sourceTree = "<group>"; };
 		5FE2CA4429AE30A0009A708D /* WorldDishesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionView.swift; sourceTree = "<group>"; };
 		5FE2CA4629AE30D2009A708D /* WorldDishesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDishesCollectionViewCell.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		E259A06329AE44E400F4C649 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+=======
 		C5F3C96E29AF42AF00BA6003 /* CusineByEthnicity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusineByEthnicity.swift; sourceTree = "<group>"; };
 		C5F3C97329AF615200BA6003 /* recipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recipeCell.swift; sourceTree = "<group>"; };
 		C5F3C97529AF61D900BA6003 /* customHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customHeader.swift; sourceTree = "<group>"; };
 		C5F3C97729AF623E00BA6003 /* favouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favouritesView.swift; sourceTree = "<group>"; };
 		C5F3C97929AF6B5E00BA6003 /* FavouritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesVC.swift; sourceTree = "<group>"; };
+>>>>>>> Dannil
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,10 +98,13 @@
 		02AD8B5929AB6C2C0042DAAC /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				352709D729AFACB70061FFE5 /* Models */,
 				02FA2CA829AFE8EE008483AD /* Managers */,
 				352709E029AFACDB0061FFE5 /* MaineViewController.swift */,
+=======
 				C5F3C97029AF42BD00BA6003 /* EthnicityCusine */,
+>>>>>>> Dannil
 				5FE2CA3E29AE26CC009A708D /* WorldDishesModule */,
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
@@ -258,22 +267,30 @@
 				352709DC29AFACB70061FFE5 /* RecipeBrains.swift in Sources */,
 				5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */,
 				5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */,
+<<<<<<< HEAD
 				E259A06429AE44E400F4C649 /* StartViewController.swift in Sources */,
+=======
 				C5F3C97629AF61D900BA6003 /* customHeader.swift in Sources */,
+>>>>>>> Dannil
 				02AD8B5F29AB6C2C0042DAAC /* TabBarController.swift in Sources */,
 				C5F3C96F29AF42AF00BA6003 /* CusineByEthnicity.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
-
+<<<<<<< HEAD
 				352709E129AFACDB0061FFE5 /* MaineViewController.swift in Sources */,
+=======
 				C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */,
+>>>>>>> Dannil
 				359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */,
 				352709DD29AFACB70061FFE5 /* AllRecipes.swift in Sources */,
 				5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,
 				02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */,
+<<<<<<< HEAD
 				02FA2CAA29AFE915008483AD /* ImageManager.swift in Sources */,
 				352709DF29AFACCC0061FFE5 /* NetworkManager.swift in Sources */,
+=======
 				C5F3C97A29AF6B5E00BA6003 /* FavouritesVC.swift in Sources */,
+>>>>>>> Dannil
 				353EB41829AE646400224635 /* RecipeScreenVC.swift in Sources */,
 				C5F3C97829AF623E00BA6003 /* favouritesView.swift in Sources */,
 				353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */,

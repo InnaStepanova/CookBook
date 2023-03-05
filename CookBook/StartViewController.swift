@@ -132,7 +132,7 @@ final class StartViewController: UIViewController {
     }
     
     @objc func startButtonPressed(sender: UIButton) {
-        let tabBarVC = UINavigationController(rootViewController: TabBarController())
+        let tabBarVC = TabBarController()
         tabBarVC.modalPresentationStyle = .fullScreen
         present(tabBarVC, animated: true)
     }
