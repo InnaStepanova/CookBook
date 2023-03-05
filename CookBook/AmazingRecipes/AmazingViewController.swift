@@ -8,6 +8,15 @@
 import UIKit
 
 class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
+    
+    var hotRecipes: [Result]? {
+        didSet {
+//            title = recipe?.title
+//            recipeName.text = recipe?.title
+//            ImageManager.shared.fetchImage(from: recipe?.image) { image in
+//                self.topImage.image = image
+            }
+        }
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let searchBar = CustomSearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 36))
@@ -20,6 +29,14 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NetworkManager.shared.fetchAllRecipesOfHot { hotRecipes in
+            self.hotRecipes = hotRecipes.results
+            self.collectionView.reloadData()
+        }
+        view.backgroundColor = .white
+        title = "Get amazing recipes for cook"
+        tabBarItem.title = "Main"
+        
         
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -89,12 +106,17 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return hotRecipes?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! MyCollectionViewCell
-        cell.backgroundColor = .systemBackground
+        
+        if let recipe = hotRecipes?[indexPath.item] {
+            cell.set(recipe: recipe)
+        }
+       
+//        cell.backgroundColor = .systemBackground
         return cell
     }
 

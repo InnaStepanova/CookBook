@@ -79,7 +79,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchAllRecipesOfHot (with completion: @escaping(AllRecipes) -> Void) {
+    func fetchAllRecipesOfHot (with completion: @escaping (AllRecipes) -> Void) {
         let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=5ab81a11e6d446f8b5571f1f26574a6c"
         
         guard let url = URL(string: urlString) else {return}
@@ -93,6 +93,7 @@ class NetworkManager {
             guard let data = data, let _ = responce else {return}
             do{
                 let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
+                
                 DispatchQueue.main.async {
                     completion(allRecipes)
                 }
