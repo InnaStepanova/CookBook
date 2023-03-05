@@ -62,7 +62,6 @@
 		02AD8B4E29AB6C2C0042DAAC = {
 			isa = PBXGroup;
 			children = (
-				C5F3C97029AF42BD00BA6003 /* EthnicityCusine */,
 				02AD8B5929AB6C2C0042DAAC /* CookBook */,
 				02AD8B5829AB6C2C0042DAAC /* Products */,
 			);
@@ -79,6 +78,7 @@
 		02AD8B5929AB6C2C0042DAAC /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+				C5F3C97029AF42BD00BA6003 /* EthnicityCusine */,
 				5FE2CA3E29AE26CC009A708D /* WorldDishesModule */,
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
