@@ -19,11 +19,13 @@ class WorldDishesViewController: UIViewController {
 
     
     private let dishesCollection = WorldDishesCollectionView()
+    
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        title = "Dishes of the World"
+        tabBarItem.title = "Cuisines"
         setupViews()
         setConstraints()
     }
@@ -34,6 +36,7 @@ class WorldDishesViewController: UIViewController {
         view.addSubview(worldDishesLabel)
         view.addSubview(dishesCollection)
     }
+    
 }
 
 

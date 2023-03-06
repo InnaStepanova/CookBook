@@ -14,7 +14,7 @@ struct CustomData {
 
 class WorldDishesCollectionView: UICollectionView {
     
-    private let data = [
+    let data = [
        CustomData(name: "African", image: UIImage(named: "African") ?? UIImage()),
        CustomData(name: "American", image: UIImage(named: "American") ?? UIImage()),
        CustomData(name: "British", image: UIImage(named: "British") ?? UIImage()),
@@ -43,7 +43,7 @@ class WorldDishesCollectionView: UICollectionView {
        CustomData(name: "Vietnamese", image: UIImage(named: "Vietnamese") ?? UIImage())
    ]
     
-    private let collectionLayout = UICollectionViewFlowLayout()
+    let collectionLayout = UICollectionViewFlowLayout()
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: .zero, collectionViewLayout: collectionLayout)
@@ -91,7 +91,11 @@ extension WorldDishesCollectionView: UICollectionViewDataSource {
         cell.data = self.data[indexPath.row]
         return cell
     }
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tabbar = TabBarController()
+        let navController = tabbar.viewControllers![1] as! UINavigationController
+        let vc = navController.topViewController as! FavouritesVC
+    }
 }
 
 //MARK: UICollectionViewDelegateFlowLayout
