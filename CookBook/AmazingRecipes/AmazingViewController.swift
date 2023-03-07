@@ -8,6 +8,8 @@
 import UIKit
 
 class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
+    
+    var hotRecipes: [Result]?
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let searchBar = CustomSearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 36))
@@ -20,6 +22,14 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NetworkManager.shared.fetchAllRecipesOfHot { hotRecipes in
+            self.hotRecipes = hotRecipes.results
+            self.collectionView.reloadData()
+        }
+        view.backgroundColor = .white
+        title = "Get amazing recipes for cook"
+        tabBarItem.title = "Main"
+        
         
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -85,20 +95,37 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-        print("See all was clicked")
+        let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
+        let vc = navController.topViewController as! FavouritesVC
+        vc.allRecipes = hotRecipes
+        vc.title = "Trending now 🔥"
+        vc.tabBarItem.title = "Search"
+        self.tabBarController?.selectedIndex = 1
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return hotRecipes?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! MyCollectionViewCell
-        cell.backgroundColor = .systemBackground
+        
+        if let recipe = hotRecipes?[indexPath.item] {
+            cell.set(recipe: recipe)
+        }
+       
+//        cell.backgroundColor = .systemBackground
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let recipe = hotRecipes?[indexPath.item] else {return}
+        let recipeVC = RecipeScreenViewController()
+        NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
+            recipeVC.recipe = recipe
+        }
+        navigationController?.pushViewController(recipeVC, animated: true)
 
     }
 

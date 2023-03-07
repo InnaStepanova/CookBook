@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DishesCollectionDelegate {
+    func presentVC(dishes: String)
+}
+
 class WorldDishesViewController: UIViewController {
     
     private let worldDishesLabel: UILabel = {
@@ -19,13 +23,16 @@ class WorldDishesViewController: UIViewController {
 
     
     private let dishesCollection = WorldDishesCollectionView()
+    
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        title = "Dishes of the World"
+        tabBarItem.title = "Cuisines"
         setupViews()
         setConstraints()
+        dishesCollection.delegate2 = self
     }
     
     private func setupViews() {
@@ -34,6 +41,7 @@ class WorldDishesViewController: UIViewController {
         view.addSubview(worldDishesLabel)
         view.addSubview(dishesCollection)
     }
+    
 }
 
 
@@ -52,3 +60,14 @@ extension WorldDishesViewController {
     }
 }
 
+extension WorldDishesViewController: DishesCollectionDelegate {
+    func presentVC(dishes: String) {
+        
+        let favoritesVC = FavouritesVC()
+        NetworkManager.shared.fetchDishesResipes(cuisine: dishes) { recipes in
+            favoritesVC.allRecipes = recipes.results
+        }
+        favoritesVC.title = "Dishes of \(dishes)"
+        navigationController?.pushViewController(favoritesVC, animated: true)
+    }
+}

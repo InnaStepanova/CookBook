@@ -111,4 +111,10 @@ class MyCollectionViewCell: UICollectionViewCell {
 
         layer.cornerRadius = 12
     }
+    func set(recipe: Result) {
+        self.titleLabel.text = recipe.title
+        ImageManager.shared.fetchImage(from: recipe.image) { image in
+            self.image.image = image
+        }
+    }
 }

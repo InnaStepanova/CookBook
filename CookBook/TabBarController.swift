@@ -36,8 +36,8 @@ class TabBarController: UITabBarController{
         tabBar.layer.borderWidth = 1
         tabBar.layer.masksToBounds = true
         
-        let mainViewController = MaineViewController()
-        let searchViewController = UIViewController()
+        let mainViewController = AmazingViewController()
+        let searchViewController = FavouritesVC()
         let cuizineCollectionViewController = WorldDishesViewController()
         let favoritesViewController = FavouritesVC()
         

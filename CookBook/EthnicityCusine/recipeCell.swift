@@ -101,4 +101,11 @@ class RecipeCell: UITableViewCell {
         cellImageView.image = image
         recipeName.text = text
     }
+    
+    func set(recipe: Result) {
+        recipeName.text = recipe.title
+        ImageManager.shared.fetchImage(from: recipe.image) { image in
+            self.cellImageView.image = image
+        }
+    }
 }

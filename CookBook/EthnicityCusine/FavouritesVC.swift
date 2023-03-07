@@ -9,12 +9,19 @@ import UIKit
 
 class FavouritesVC: UIViewController {
     
+    var allRecipes: [Result]? {
+        didSet {
+            favoriteView.recipesTableView.reloadData()
+        }
+    }
+    
     private let favoriteView = FavouritesView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(view.frame.width)
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .white
+        tabBarItem.title = "Search"
         favoriteView.recipesTableView.dataSource = self
         favoriteView.recipesTableView.delegate = self
         setupView()
@@ -42,7 +49,7 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return allRecipes?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView,
@@ -50,17 +57,26 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier:
                                                     RecipeCell.identifier,
                                                  for: indexPath) as! RecipeCell
-        let image = UIImage(named: "dish1")!
-        let text = "12345678 910111213141516 17181920212 223242526"
         cell.isChecked = false
         cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
-        cell.configure(withImage: image, text: text)
-//        tableView.rowHeight = UITableView.automaticDimension
+        if let recipe = allRecipes?[indexPath.item] {
+            cell.set(recipe: recipe)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 300
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let recipe = allRecipes?[indexPath.item] else {return}
+        let recipeVC = RecipeScreenViewController()
+        NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
+            recipeVC.recipe = recipe
+        }
+        navigationController?.pushViewController(recipeVC, animated: true)
     }
 }
 
