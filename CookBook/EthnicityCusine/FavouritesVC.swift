@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavouritesVC: UIViewController {
+class FavouritesVC: UIViewController, UISearchResultsUpdating {
     
     var allRecipes: [Result]? {
         didSet {
@@ -17,6 +17,20 @@ class FavouritesVC: UIViewController {
     
     private let favoriteView = FavouritesView()
     
+    let searchController: UISearchController = {
+        let results = UIViewController()
+
+        let vc = UISearchController(searchResultsController: results)
+         vc.searchBar.placeholder = "What do you want to find?"
+         vc.searchBar.searchBarStyle  = .minimal
+         vc.definesPresentationContext = true
+         vc.searchBar.endEditing(true)
+         
+         return vc
+     }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(view.frame.width)
@@ -25,18 +39,42 @@ class FavouritesVC: UIViewController {
         favoriteView.recipesTableView.dataSource = self
         favoriteView.recipesTableView.delegate = self
         setupView()
-        
+
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+              
+        searchController.searchResultsUpdater = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+            navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     
     private func setupView() {
         view.addSubview(favoriteView)
-        NSLayoutConstraint.activate([
-            favoriteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            favoriteView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            favoriteView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            favoriteView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
+                NSLayoutConstraint.activate([
+                    favoriteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+                    favoriteView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                    favoriteView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                    favoriteView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                ])
+
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
+        
+        print(query)
     }
 }
 
@@ -79,4 +117,3 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(recipeVC, animated: true)
     }
 }
-
