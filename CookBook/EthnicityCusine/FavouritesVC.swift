@@ -74,7 +74,7 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         guard let recipe = allRecipes?[indexPath.item] else {return}
         let recipeVC = RecipeScreenViewController()
         NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
-            recipeVC.recipe = recipe
+            recipeVC.setupUI(with: recipe)
         }
         navigationController?.pushViewController(recipeVC, animated: true)
     }
