@@ -42,7 +42,7 @@ extension RecipeScreenViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let currentSection = sections[section]
         guard let ingredients = ingredientsList[currentSection] else { return 0 }
-        return ingredients.count
+        return ingredientsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +51,8 @@ extension RecipeScreenViewController: UITableViewDataSource {
         guard let ingredients = ingredientsList[currentSection] else { return UITableViewCell() }
         let amount = ingredients[indexPath.row].0
         let ingredient = ingredients[indexPath.row].1
-        cell?.configure(with: ingredient, amount: amount)
+        let ingredient = ingredientsList[indexPath.row]
+        cell?.configure(with: ingredient, amount: "*")
         return cell ?? UITableViewCell()
     }
 }

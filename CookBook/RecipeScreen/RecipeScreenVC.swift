@@ -28,22 +28,26 @@ enum MockData {
 
 final class RecipeScreenViewController: UIViewController {
     //MARK: - Properties
-    var recipe: Recipe? {
-        didSet {
-            title = recipe?.title
-            recipeName.text = recipe?.title
-            ImageManager.shared.fetchImage(from: recipe?.image) { image in
-                self.topImage.image = image
-            }
-        }
-    }
-    private(set) var ingredientsList: [String: [(String, String)]] = [:]
+//    var recipe: Recipe? {
+//        didSet {
+//            title = recipe?.title
+//            recipeName.text = recipe?.title
+//            ImageManager.shared.fetchImage(from: recipe?.image) { image in
+//                self.topImage.image = image
+//            }
+//        }
+//    }
+   
+    private(set) var ingredientsList: [String: [String]] = [:]
+//    private(set) var ingredientsList: [String] = []
     private(set) var sections: [String] = []
     private(set) var isTableShowsIngredient: Bool = true
+    private(set) var instructions: [String] = []
+    private(set) var ingredients: [String] = []
     
     private let topImage: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .systemBrown
+        view.contentMode = .scaleAspectFill
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -59,7 +63,7 @@ final class RecipeScreenViewController: UIViewController {
     private let sheetView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 14
+        view.layer.cornerRadius = 16
         view.backgroundColor = .white
         return view
     }()
@@ -72,7 +76,7 @@ final class RecipeScreenViewController: UIViewController {
     }()
     private let starImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(systemName: "star.fill")
+        view.image = UIImage(systemName: "timer")
         view.tintColor = .systemYellow
         return view
     }()
@@ -204,7 +208,7 @@ final class RecipeScreenViewController: UIViewController {
         view.backgroundColor = .white
         recipeTableView.delegate = self
         recipeTableView.dataSource = self
-        setupUI()
+//        setupUI()
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -230,11 +234,11 @@ final class RecipeScreenViewController: UIViewController {
     //MARK: - Updating data
     private func updateTable() {
         if isTableShowsIngredient {
-            ingredientsList = MockData.ingredientsList
+            ingredientsList = ingredients
             sections = MockData.ingredientsSections
             recipeTableView.allowsSelection = true
         } else {
-            ingredientsList = MockData.directionList
+            ingredientsList = instructions
             sections = MockData.directionSections
             recipeTableView.allowsSelection = false
         }
@@ -242,14 +246,22 @@ final class RecipeScreenViewController: UIViewController {
     }
     
     //MARK: - Setup UI
-    private func setupUI() {
-        recipeName.text = MockData.name
-        recipeDescription.text = MockData.description
-        recipeRating.text = "\(MockData.rating)"
-        reviewsAmount.text = "(\(MockData.reviews) reviews)"
-        authorPhoto.image = MockData.authorPhoto
-        authorName.text = MockData.authorName
-        authorTitle.text = MockData.authorTitle
+    func setupUI(with recipe: Recipe) {
+        ImageManager.shared.fetchImage(from: recipe.image) { image in
+            self.topImage.image = image
+        }
+        guard let cookingMinutes = recipe.cookingMinutes else { return }
+        guard let price = recipe.pricePerServing else { return }
+        guard var instruction = recipe.instructions else { return }
+        instruction.removeFirst(8)
+        instruction.removeLast(10)
+        title = recipe.title
+        recipeRating.text = "(\(String(describing: cookingMinutes)) minutes)"
+        recipeDescription.text = "(Price per serving: \(String(describing: price))"
+        ingredients = recipe.extendedIngredients.map{String(describing: $0.original ?? "")}
+        instructions = instruction.components(separatedBy: "</li><li>")
+        
+        print(instructions)
         recipeTableView.showsVerticalScrollIndicator = false
         updateTable()
         setupTargets()
@@ -272,7 +284,7 @@ final class RecipeScreenViewController: UIViewController {
             topImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            topImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            topImage.bottomAnchor.constraint(equalTo: sheetView.topAnchor, constant: 20),
             
             likeButton.trailingAnchor.constraint(equalTo: sheetView.trailingAnchor, constant: -40),
             likeButton.centerYAnchor.constraint(equalTo: sheetView.topAnchor, constant: -5),
