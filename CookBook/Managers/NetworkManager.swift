@@ -8,12 +8,12 @@
 import UIKit
 
 class NetworkManager {
-    
+    private let apiKey = "e61c6e1c1a21413492217141c55a118e"
     static let shared = NetworkManager()
     private init() {}
     
     func fetchRecipe (id: Int, with completion: @escaping(Recipe) -> Void) {
-        let urlString  = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=false&apiKey=5ab81a11e6d446f8b5571f1f26574a6c"
+        let urlString  = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=false&apiKey=\(apiKey)"
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in
            
@@ -35,7 +35,7 @@ class NetworkManager {
     }
     
     func fetchAllCuizineRecipe (cuisine: String, with completion: @escaping(AllRecipes) -> Void) {
-        let urlString = " https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&number=20&apiKey=5ab81a11e6d446f8b5571f1f26574a6c"
+        let urlString = " https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&number=20&apiKey=\(apiKey)"
         
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in
@@ -57,7 +57,7 @@ class NetworkManager {
         }.resume()
     }
     func fetchAllRecipesOfType (type: String, with completion: @escaping(AllRecipes) -> Void) {
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(type) &apiKey=5ab81a11e6d446f8b5571f1f26574a6c"
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(type)&apiKey=\(apiKey)"
         
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in
@@ -80,7 +80,7 @@ class NetworkManager {
     }
     
     func fetchAllRecipesOfHot (with completion: @escaping (AllRecipes) -> Void) {
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=5ab81a11e6d446f8b5571f1f26574a6c"
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)"
         
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in
@@ -104,7 +104,7 @@ class NetworkManager {
     }
     
     func fetchDishesResipes (cuisine: String, with completion: @escaping (AllRecipes) -> Void) {
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&apiKey=5ab81a11e6d446f8b5571f1f26574a6c"
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&apiKey=\(apiKey)"
         
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in

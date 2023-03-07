@@ -123,7 +123,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         guard let recipe = hotRecipes?[indexPath.item] else {return}
         let recipeVC = RecipeScreenViewController()
         NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
-            recipeVC.recipe = recipe
+            recipeVC.setupUI(with: recipe)
         }
         navigationController?.pushViewController(recipeVC, animated: true)
 
