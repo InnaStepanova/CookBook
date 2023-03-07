@@ -80,11 +80,11 @@ class FavouritesVC: UIViewController, UISearchResultsUpdating {
 
 extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! CustomHeader
-        view.title.text = "Favourites"
-        return view
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! CustomHeader
+//        view.title.text = "Favourites"
+//        return view
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allRecipes?.count ?? 0
@@ -96,7 +96,7 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
                                                     RecipeCell.identifier,
                                                  for: indexPath) as! RecipeCell
         cell.isChecked = false
-        cell.favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        cell.favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
         if let recipe = allRecipes?[indexPath.item] {
             cell.set(recipe: recipe)
         }
