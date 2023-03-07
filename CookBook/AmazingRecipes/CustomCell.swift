@@ -14,6 +14,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     fileprivate let image: UIImageView = {
         let iv = UIImageView()
+        iv.layer.cornerRadius = 16
         iv.image = UIImage(named: "logo3")
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
@@ -23,17 +24,9 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name of the recipie"
+        label.text = "Name of the recipe"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var personLabel: UILabel = {
-        let label = UILabel()
-        label.text = "userLabel"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .gray
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -80,7 +73,6 @@ class MyCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(image)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(personLabel)
         contentView.addSubview(heartButton)
         
         image.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -91,12 +83,7 @@ class MyCollectionViewCell: UICollectionViewCell {
         titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: personLabel.topAnchor).isActive = true
-        
-        personLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        personLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        personLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        personLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
         heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
         heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true

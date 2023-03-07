@@ -61,7 +61,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.75)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.85)
         collectionView.collectionViewLayout = layout
         
         view.addSubview(stack)
@@ -87,7 +87,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
 //            seeAllButton.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 10),
 //            seeAllButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
 
-            collectionView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: stack.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)

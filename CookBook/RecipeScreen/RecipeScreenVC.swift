@@ -175,7 +175,7 @@ final class RecipeScreenViewController: UIViewController {
         guard let instruction = recipe.instructions else { return }
         title = recipe.title
         cookingTime.text = "\(String(describing: cookingMinutes)) minutes"
-        pricePerServing.text = "Price per serving: \(String(describing: price))$"
+        pricePerServing.text = "Price per serving: \(String(describing: price))₽"
         ingredients = recipe.extendedIngredients.map { "\($0.original ?? "")" }
         instructions = instruction.components(separatedBy: "</li><li>")
         recipeTableView.showsVerticalScrollIndicator = false

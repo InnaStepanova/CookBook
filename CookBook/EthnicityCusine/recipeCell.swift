@@ -8,30 +8,41 @@
 import UIKit
 
 class RecipeCell: UITableViewCell {
-    
     static let identifier = "RecipeCell"
-    var isChecked = true
+    var isChecked = false
     
-    lazy var favouriteButton: UIButton = {
-       let button = UIButton()
-       button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-       button.tintColor = .red
-       button.addTarget(self, action: #selector(favouriteButtonPressed), for: .touchUpInside)
-       button.translatesAutoresizingMaskIntoConstraints = false
-       return button
-   }()
+    var favouriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .systemRed
+        button.setImage(UIImage(named: "heart"), for: .normal)
+        button.contentMode = .scaleAspectFill
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(favouriteButtonPressed(_ :)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
-    @objc func favouriteButtonPressed() {
-        
+    @objc func favouriteButtonPressed(_ sender: UIButton) {
         if isChecked {
-            favouriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
             isChecked = false
+            buttonGrowingEffect(sender)
         } else {
-            favouriteButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
             isChecked = true
+            buttonGrowingEffect(sender)
         }
     }
-
+    
+    private func buttonGrowingEffect(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, animations: {
+            sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.transform = CGAffineTransform.identity
+            })
+        })
+    }
     
     private let recipeName: UILabel = {
         let label = UILabel()
@@ -45,19 +56,17 @@ class RecipeCell: UITableViewCell {
         
         return label
     }()
-
+    
     let cellImageView: UIImageView = {
-        
         let image = UIImage()
         let cellImageView = UIImageView(image: image)
-
+        
         cellImageView.contentMode = .scaleToFill
         cellImageView.clipsToBounds = true
         cellImageView.layer.cornerRadius = 15
         cellImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        return cellImageView
         
+        return cellImageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -66,14 +75,14 @@ class RecipeCell: UITableViewCell {
         backgroundColor = .systemBackground
         setupViews()
         setupConstraints()
-        
     }
+    
     private func setupViews() {
         contentView.addSubview(cellImageView)
         contentView.addSubview(favouriteButton)
         contentView.addSubview(recipeName)
     }
-
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
@@ -82,21 +91,22 @@ class RecipeCell: UITableViewCell {
             cellImageView.widthAnchor.constraint(equalToConstant: self.frame.width + 10),
             cellImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            recipeName.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            recipeName.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            recipeName.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             recipeName.topAnchor.constraint(equalTo: cellImageView.bottomAnchor, constant: 8),
             recipeName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
             favouriteButton.heightAnchor.constraint(equalToConstant: 30),
             favouriteButton.widthAnchor.constraint(equalToConstant: 30),
-            favouriteButton.topAnchor.constraint(equalTo: cellImageView.topAnchor),
-            favouriteButton.leadingAnchor.constraint(equalTo: cellImageView.leadingAnchor,constant: 5)
-               ])
+            favouriteButton.topAnchor.constraint(equalTo: cellImageView.topAnchor, constant: 5),
+            favouriteButton.trailingAnchor.constraint(equalTo: cellImageView.trailingAnchor, constant: -5)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func configure(withImage image: UIImage, text: String) {
         cellImageView.image = image
         recipeName.text = text
