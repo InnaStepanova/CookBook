@@ -126,4 +126,28 @@ class NetworkManager {
             }
         }.resume()
     }
+    
+    func fetcResipesOf (search: String, with completion: @escaping (AllRecipes) -> Void) {
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?query=\(search)&apiKey=5ab81a11e6d446f8b5571f1f26574a6c&number=30"
+        
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url) { data, responce, error in
+           
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let data = data, let _ = responce else {return}
+            do{
+                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(allRecipes)
+                }
+            } catch let jsonError {
+                print(jsonError)
+            }
+        }.resume()
+    }
 }
