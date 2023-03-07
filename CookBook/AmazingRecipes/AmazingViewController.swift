@@ -73,7 +73,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.75)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.85)
         collectionView.collectionViewLayout = layout
         
         view.addSubview(stack)
@@ -87,7 +87,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
 
-            collectionView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: stack.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
@@ -131,7 +131,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         guard let recipe = hotRecipes?[indexPath.item] else {return}
         let recipeVC = RecipeScreenViewController()
         NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
-            recipeVC.recipe = recipe
+            recipeVC.setupUI(with: recipe)
         }
         navigationController?.pushViewController(recipeVC, animated: true)
 

@@ -80,7 +80,7 @@ class MaineViewController: UIViewController {
     @objc func buttonPressed() {
         let recipeVC = RecipeScreenViewController()
         NetworkManager.shared.fetchRecipe(id: 715562) { recipe in
-            recipeVC.recipe = recipe
+            recipeVC.setupUI(with: recipe)
         }
         navigationController?.pushViewController(recipeVC, animated: true)
 //        present(recipeVC, animated: true)
