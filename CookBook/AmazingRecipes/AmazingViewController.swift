@@ -12,9 +12,20 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     var hotRecipes: [Result]?
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    let searchBar = CustomSearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 36))
-    let trendingLabel = UILabel()
-    let seeAllButton = UIButton(type: .system)
+    
+    let searchController: UISearchController = {
+        let results = UIViewController()
+
+        let vc = UISearchController(searchResultsController: results)
+         vc.searchBar.placeholder = "What do you want to find?"
+         vc.searchBar.searchBarStyle  = .minimal
+         vc.definesPresentationContext = true
+         vc.searchBar.endEditing(true)
+         
+         return vc
+     }()
+
+    let trendingLabel = UILa ton(type: .system)
     let fullString = NSMutableAttributedString(string: "Trending now ")
     let image1Attachment = NSTextAttachment()
     let stack = UIStackView()
@@ -30,6 +41,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         title = "Get amazing recipes for cook"
         tabBarItem.title = "Main"
         
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchResultsUpdater = self
         
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -39,8 +53,6 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(MyCollectionViewCell.self, forCellWithReuseIdentifier: "CustomCell")
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
         
         trendingLabel.text = "Trending now"
         trendingLabel.font = .systemFont(ofSize: 20, weight: .bold)
@@ -68,30 +80,28 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         stack.addArrangedSubview(trendingLabel)
         stack.addArrangedSubview(seeAllButton)
         view.addSubview(collectionView)
-        view.addSubview(searchBar)
-//        view.addSubview(trendingLabel)
-//        view.addSubview(seeAllButton)
+
 
         NSLayoutConstraint.activate([
-            
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            
-            stack.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+            stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            
-//            trendingLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
-//            trendingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-//            seeAllButton.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 10),
-//            seeAllButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
 
             collectionView.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
         ])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+            navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
@@ -113,8 +123,6 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         if let recipe = hotRecipes?[indexPath.item] {
             cell.set(recipe: recipe)
         }
-       
-//        cell.backgroundColor = .systemBackground
         return cell
     }
 
@@ -130,7 +138,10 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
 
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        print(text)
+        
+        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
+        print(query)
     }
 }
