@@ -43,6 +43,7 @@ class WorldDishesCollectionView: UICollectionView {
        CustomData(name: "Vietnamese", image: UIImage(named: "Vietnamese") ?? UIImage())
    ]
     
+    var delegate2: DishesCollectionDelegate?
     let collectionLayout = UICollectionViewFlowLayout()
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -92,9 +93,9 @@ extension WorldDishesCollectionView: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tabbar = TabBarController()
-        let navController = tabbar.viewControllers![1] as! UINavigationController
-        let vc = navController.topViewController as! FavouritesVC
+        let dishes = data[indexPath.item].name
+        print(dishes)
+        delegate2?.presentVC(dishes: dishes)
     }
 }
 
@@ -105,5 +106,4 @@ extension WorldDishesCollectionView: UICollectionViewDelegateFlowLayout {
         CGSize(width: self.frame.width * 0.486,
                height: self.frame.width * 0.3)
     }
-
 }

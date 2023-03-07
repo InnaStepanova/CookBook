@@ -99,6 +99,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         let vc = navController.topViewController as! FavouritesVC
         vc.allRecipes = hotRecipes
         vc.title = "Trending now 🔥"
+        vc.tabBarItem.title = "Search"
         self.tabBarController?.selectedIndex = 1
     }
 

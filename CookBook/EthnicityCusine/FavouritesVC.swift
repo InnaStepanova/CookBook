@@ -9,7 +9,11 @@ import UIKit
 
 class FavouritesVC: UIViewController {
     
-    var allRecipes: [Result]?
+    var allRecipes: [Result]? {
+        didSet {
+            favoriteView.recipesTableView.reloadData()
+        }
+    }
     
     private let favoriteView = FavouritesView()
     
@@ -58,8 +62,6 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         if let recipe = allRecipes?[indexPath.item] {
             cell.set(recipe: recipe)
         }
-        
-//        tableView.rowHeight = UITableView.automaticDimension
         return cell
     }
     
