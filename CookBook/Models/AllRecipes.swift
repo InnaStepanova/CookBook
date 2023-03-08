@@ -13,10 +13,11 @@ struct AllRecipes: Decodable {
 }
 
 // MARK: - Result
-struct Result: Decodable {
+struct Result: Decodable, Hashable {
     let id: Int
     let title: String
     let image: String?
+    var like: Bool? = false
 }
 
 

@@ -9,6 +9,8 @@ import UIKit
 
 class MyCollectionViewCell: UICollectionViewCell {
     
+    var likeRecipes = LikeRecipes()
+    
     let images = ["heart", "tappedHeart"]
     var currentImageIndex = 0
     
@@ -25,7 +27,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Name of the recipe"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -65,7 +67,6 @@ class MyCollectionViewCell: UICollectionViewCell {
         currentImageIndex = (currentImageIndex + 1) % images.count
         heartButton.setImage(UIImage(named: images[currentImageIndex]), for: .normal)
         buttonGrowingEffect(heartButton)
-        print("heart was clicked")
     }
 
     override init(frame: CGRect) {
@@ -80,10 +81,10 @@ class MyCollectionViewCell: UICollectionViewCell {
         image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100).isActive = true
         
-        titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+//        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
         heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
         heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
