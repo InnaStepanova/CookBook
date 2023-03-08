@@ -7,25 +7,32 @@
 
 import UIKit
 
-class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
+class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
     var hotRecipes: [Result]?
+    
+    let searchTextField: UITextField = {
+        let field = UITextField()
+        field.textAlignment = .left
+        field.borderStyle = .roundedRect
+        field.placeholder = "What do you want to find?"
+        field.returnKeyType = .search
+        return field
+    }()
+    
+    let searchButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.backgroundColor = .white
+        button.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
+        button.layer.cornerRadius = 5
+        return button
+    }()
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let searchController: UISearchController = {
-        let results = UIViewController()
-
-        let vc = UISearchController(searchResultsController: results)
-         vc.searchBar.placeholder = "What do you want to find?"
-         vc.searchBar.searchBarStyle  = .minimal
-         vc.definesPresentationContext = true
-         vc.searchBar.endEditing(true)
-         
-         return vc
-     }()
-
-    let trendingLabel = UILa ton(type: .system)
+    let trendingLabel = UILabel()
+    let seeAllButton = UIButton(type: .system)
     let fullString = NSMutableAttributedString(string: "Trending now ")
     let image1Attachment = NSTextAttachment()
     let stack = UIStackView()
@@ -40,13 +47,14 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         view.backgroundColor = .white
         title = "Get amazing recipes for cook"
         tabBarItem.title = "Main"
-        
-        navigationItem.searchController = searchController
+    
         navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchResultsUpdater = self
+        
+        searchTextField.delegate = self
         
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -76,21 +84,35 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.85)
         collectionView.collectionViewLayout = layout
         
+        view.addSubview(searchTextField)
+        view.addSubview(searchButton)
         view.addSubview(stack)
         stack.addArrangedSubview(trendingLabel)
         stack.addArrangedSubview(seeAllButton)
         view.addSubview(collectionView)
-
+        
+        
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            stack.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
 
             collectionView.topAnchor.constraint(equalTo: stack.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1)
+            collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 1),
+            
+            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -10),
+            
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            searchButton.heightAnchor.constraint(equalTo: searchTextField.heightAnchor),
+            seeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15)
         ])
     }
     
@@ -105,12 +127,27 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-        let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
-        let vc = navController.topViewController as! FavouritesVC
+        let vc = FavouritesVC()
         vc.allRecipes = hotRecipes
         vc.title = "Trending now 🔥"
         vc.tabBarItem.title = "Search"
-        self.tabBarController?.selectedIndex = 1
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func searchButtonPressed() {
+        if let text = searchTextField.text {
+            
+            let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
+            let vc = navController.topViewController as! FavouritesVC
+            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+                vc.allRecipes = recipes.results
+            }
+            vc.title = "Result of search: \(text)"
+            vc.tabBarItem.title = "Search"
+            self.tabBarController?.selectedIndex = 1
+        }
+        searchTextField.text = ""
+        searchTextField.endEditing(true)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -137,11 +174,20 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
 
     }
 
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = searchTextField.text {
+            
+            let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
+            let vc = navController.topViewController as! FavouritesVC
+            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+                vc.allRecipes = recipes.results
+            }
+            vc.title = "Result of search: \(text)"
+            vc.tabBarItem.title = "Search"
+            self.tabBarController?.selectedIndex = 1
         }
-        print(query)
+        searchTextField.text = ""
+        searchTextField.endEditing(true)
+        return true
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavouritesVC: UIViewController, UISearchResultsUpdating {
+class FavouritesVC: UIViewController, UITextFieldDelegate {
     
     var allRecipes: [Result]? {
         didSet {
@@ -15,35 +15,38 @@ class FavouritesVC: UIViewController, UISearchResultsUpdating {
         }
     }
     
+    let searchTextField: UITextField = {
+        let field = UITextField()
+        field.textAlignment = .left
+        field.borderStyle = .roundedRect
+        field.placeholder = "What do you want to find?"
+        field.returnKeyType = .search
+        return field
+    }()
+    
+    let searchButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.backgroundColor = .white
+        button.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
     private let favoriteView = FavouritesView()
-    
-    let searchController: UISearchController = {
-        let results = UIViewController()
-
-        let vc = UISearchController(searchResultsController: results)
-         vc.searchBar.placeholder = "What do you want to find?"
-         vc.searchBar.searchBarStyle  = .minimal
-         vc.definesPresentationContext = true
-         vc.searchBar.endEditing(true)
-         
-         return vc
-     }()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Search of recipes"
         print(view.frame.width)
         view.backgroundColor = .white
         tabBarItem.title = "Search"
         favoriteView.recipesTableView.dataSource = self
         favoriteView.recipesTableView.delegate = self
         setupView()
+        
+        searchTextField.delegate = self
 
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-              
-        searchController.searchResultsUpdater = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,32 +62,56 @@ class FavouritesVC: UIViewController, UISearchResultsUpdating {
     
     private func setupView() {
         view.addSubview(favoriteView)
+        view.addSubview(searchTextField)
+        view.addSubview(searchButton)
+        
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        
                 NSLayoutConstraint.activate([
-                    favoriteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+                    favoriteView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 10),
                     favoriteView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
                     favoriteView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
                     favoriteView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                    
+                    searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+                    searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+                    searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -10),
+                    
+                    searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+                    searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+                    searchButton.heightAnchor.constraint(equalTo: searchTextField.heightAnchor)
                 ])
 
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return
+    @objc private func searchButtonPressed() {
+        if let text = searchTextField.text {
+            title = "Result of search: \(text)"
+            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+                self.allRecipes = recipes.results
+            }
         }
-        
-        print(query)
+        tabBarItem.title = "Search"
+        searchTextField.text = ""
+        searchTextField.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text {
+            title = "Result of search: \(text)"
+            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+                self.allRecipes = recipes.results
+            }
+        }
+        tabBarItem.title = "Search"
+        searchTextField.text = ""
+        searchTextField.endEditing(true)
+        return true
     }
 }
 
 extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader") as! CustomHeader
-//        view.title.text = "Favourites"
-//        return view
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allRecipes?.count ?? 0
@@ -95,6 +122,7 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier:
                                                     RecipeCell.identifier,
                                                  for: indexPath) as! RecipeCell
+    
         cell.isChecked = false
         cell.favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
         if let recipe = allRecipes?[indexPath.item] {
