@@ -28,6 +28,7 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.backgroundColor = .white
+        button.tintColor = .red
         button.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 5
         return button
@@ -126,7 +127,7 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
         cell.isChecked = false
         cell.favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
         if let recipe = allRecipes?[indexPath.item] {
-            cell.set(recipe: recipe)
+            cell.set(recipe: recipe, index: indexPath.item)
         }
         return cell
     }
