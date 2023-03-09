@@ -11,6 +11,8 @@ class RecipeCell: UITableViewCell {
     static let identifier = "RecipeCell"
     var isChecked = false
     
+    var recipe: Result!
+    
     var favouriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
@@ -27,10 +29,12 @@ class RecipeCell: UITableViewCell {
             favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
             isChecked = false
             buttonGrowingEffect(sender)
+            DataManager.shared.delete(recipe: recipe)
         } else {
             favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
             isChecked = true
             buttonGrowingEffect(sender)
+            DataManager.shared.save(recipe: recipe)
         }
     }
     
@@ -112,8 +116,10 @@ class RecipeCell: UITableViewCell {
         recipeName.text = text
     }
     
-    func set(recipe: Result) {
+    func set(recipe: Result, index: Int) {
+        self.recipe = recipe
         recipeName.text = recipe.title
+        favouriteButton.tag = recipe.id
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.cellImageView.image = image
         }

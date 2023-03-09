@@ -29,17 +29,17 @@ class TabBarController: UITabBarController{
     
     private func configure() {
         tabBar.tintColor = Resources.Colors.red
-        tabBar.barTintColor = Resources.Colors.pink
+        tabBar.barTintColor = .white
         tabBar.backgroundColor = .white
         
-        tabBar.layer.borderColor = Resources.Colors.pink.cgColor
+        tabBar.layer.borderColor = Resources.Colors.red.cgColor
         tabBar.layer.borderWidth = 1
         tabBar.layer.masksToBounds = true
         
         let mainViewController = AmazingViewController()
         let searchViewController = FavouritesVC()
         let cuizineCollectionViewController = WorldDishesViewController()
-        let favoritesViewController = FavouritesVC()
+        let favoritesViewController = LikeRecipesViewController()
         
         let mainNavigation = UINavigationController(rootViewController: mainViewController)
         let searchNavigation = UINavigationController(rootViewController: searchViewController)

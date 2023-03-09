@@ -9,7 +9,7 @@ import UIKit
 
 class MyCollectionViewCell: UICollectionViewCell {
     
-    var likeRecipes = LikeRecipes()
+    var recipe: Result!
     
     let images = ["heart", "tappedHeart"]
     var currentImageIndex = 0
@@ -53,7 +53,7 @@ class MyCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    @IBAction func buttonGrowingEffect(_ sender: UIButton) {
+    private func buttonGrowingEffect(_ sender: UIButton) {
         UIView.animate(withDuration: 0.2, animations: {
             sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }, completion: { _ in
@@ -64,6 +64,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     }
 
     @objc func buttonTapped(_ sender: UIButton) {
+        DataManager.shared.save(recipe: recipe)
         currentImageIndex = (currentImageIndex + 1) % images.count
         heartButton.setImage(UIImage(named: images[currentImageIndex]), for: .normal)
         buttonGrowingEffect(heartButton)
@@ -84,7 +85,6 @@ class MyCollectionViewCell: UICollectionViewCell {
         titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-//        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
         heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
         heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
@@ -101,6 +101,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     }
     func set(recipe: Result) {
         self.titleLabel.text = recipe.title
+        self.recipe = recipe
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.image.image = image
         }

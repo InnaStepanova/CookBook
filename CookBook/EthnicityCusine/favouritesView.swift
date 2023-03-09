@@ -26,7 +26,6 @@ final class FavouritesView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         recipesTableView.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.identifier)
-//        recipesTableView.register(CustomHeader.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
         addSubview(recipesTableView)
         setupConstrains()
         

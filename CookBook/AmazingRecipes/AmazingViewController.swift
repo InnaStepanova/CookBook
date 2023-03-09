@@ -24,6 +24,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.backgroundColor = .white
+        button.tintColor = .red
         button.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 5
         return button
@@ -40,6 +41,8 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let proverka = DataManager.shared.fetchRecipes()
+        print("Proverka \(proverka)")
         NetworkManager.shared.fetchAllRecipesOfHot { hotRecipes in
             self.hotRecipes = hotRecipes.results
             self.collectionView.reloadData()

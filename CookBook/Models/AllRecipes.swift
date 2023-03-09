@@ -13,7 +13,7 @@ struct AllRecipes: Decodable {
 }
 
 // MARK: - Result
-struct Result: Decodable, Hashable {
+struct Result: Codable, Hashable {
     let id: Int
     let title: String
     let image: String?

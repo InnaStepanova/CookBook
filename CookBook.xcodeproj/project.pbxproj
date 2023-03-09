@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		029AE7BE29B9E01D00060B0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029AE7BD29B9E01D00060B0F /* DataManager.swift */; };
+		029AE7C129B9F00A00060B0F /* LikeRecipesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029AE7C029B9F00A00060B0F /* LikeRecipesVC.swift */; };
+		029AE7C329B9F85500060B0F /* LikeRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029AE7C229B9F85500060B0F /* LikeRecipeCell.swift */; };
 		02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */; };
 		02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */; };
 		02AD8B5F29AB6C2C0042DAAC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8B5E29AB6C2C0042DAAC /* TabBarController.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		029AE7BD29B9E01D00060B0F /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		029AE7C029B9F00A00060B0F /* LikeRecipesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRecipesVC.swift; sourceTree = "<group>"; };
+		029AE7C229B9F85500060B0F /* LikeRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeRecipeCell.swift; sourceTree = "<group>"; };
 		02AD8B5729AB6C2C0042DAAC /* CookBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; wrapsLines = 1; };
@@ -79,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		029AE7BF29B9EFE500060B0F /* LikeRecipes */ = {
+			isa = PBXGroup;
+			children = (
+				029AE7C029B9F00A00060B0F /* LikeRecipesVC.swift */,
+				029AE7C229B9F85500060B0F /* LikeRecipeCell.swift */,
+			);
+			path = LikeRecipes;
+			sourceTree = "<group>";
+		};
 		02AD8B4E29AB6C2C0042DAAC = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +119,7 @@
 				359C619429AE9122007AED8D /* RecipeScreen */,
 				C5F3C97029AF42BD00BA6003 /* EthnicityCusine */,
 				5FE2CA3E29AE26CC009A708D /* WorldDishesModule */,
+				029AE7BF29B9EFE500060B0F /* LikeRecipes */,
 				352709E029AFACDB0061FFE5 /* MaineViewController.swift */,
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
@@ -122,6 +138,7 @@
 			children = (
 				352709DE29AFACCC0061FFE5 /* NetworkManager.swift */,
 				02FA2CA929AFE915008483AD /* ImageManager.swift */,
+				029AE7BD29B9E01D00060B0F /* DataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -283,13 +300,16 @@
 				C5F3C96F29AF42AF00BA6003 /* CusineByEthnicity.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
 				352709E129AFACDB0061FFE5 /* MaineViewController.swift in Sources */,
+				029AE7BE29B9E01D00060B0F /* DataManager.swift in Sources */,
 				C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */,
 				359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */,
 				352709DD29AFACB70061FFE5 /* AllRecipes.swift in Sources */,
 				5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */,
+				029AE7C129B9F00A00060B0F /* LikeRecipesVC.swift in Sources */,
 				02AD8B5B29AB6C2C0042DAAC /* AppDelegate.swift in Sources */,
 				02AD8B5D29AB6C2C0042DAAC /* SceneDelegate.swift in Sources */,
 				02FA2CAA29AFE915008483AD /* ImageManager.swift in Sources */,
+				029AE7C329B9F85500060B0F /* LikeRecipeCell.swift in Sources */,
 				352709DF29AFACCC0061FFE5 /* NetworkManager.swift in Sources */,
 				C5F3C97A29AF6B5E00BA6003 /* FavouritesVC.swift in Sources */,
 				173227AF29B4D1D300106179 /* AmazingViewController.swift in Sources */,
