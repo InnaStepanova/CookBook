@@ -63,7 +63,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         print("Proverka \(proverka)")
         NetworkManager.shared.fetchAllRecipesOfHot { hotRecipes in
             self.hotRecipes = hotRecipes.results
-            self.collectionView.reloadData()
+            self.firstCollectionView.reloadData()
         }
         view.backgroundColor = .white
         title = "Get amazing recipes for cook"
@@ -188,13 +188,13 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         layout4.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.width * 0.55)
         fourthCollectionView.collectionViewLayout = layout4
         
-//        view.addSubview(searchTextField)
-//        view.addSubview(searchButton)
 //        view.addSubview(stack)
 //        stack.addArrangedSubview(trendingLabel)
 //        stack.addArrangedSubview(seeAllButton)
 //        view.addSubview(collectionView)
         
+        view.addSubview(searchTextField)
+        view.addSubview(searchButton)
         view.addSubview(firstStack)
         firstStack.addArrangedSubview(trendingLabel)
         firstStack.addArrangedSubview(seeAllButton)
@@ -236,8 +236,8 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             firstCollectionView.topAnchor.constraint(equalTo: firstStack.bottomAnchor, constant: 15),
             firstCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             firstCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            //firstCollectionView.heightAnchor.constraint(equalTo: firstCollectionView.widthAnchor, multiplier: 0.85),
-            firstCollectionView.heightAnchor.constraint(equalTo: firstCollectionView.widthAnchor, multiplier: 0.1),
+            firstCollectionView.heightAnchor.constraint(equalTo: firstCollectionView.widthAnchor, multiplier: 0.85),
+            //firstCollectionView.heightAnchor.constraint(equalTo: firstCollectionView.widthAnchor, multiplier: 0.1),
             
             popularCategoryLabel.topAnchor.constraint(equalTo: firstCollectionView.bottomAnchor, constant: 5),
             popularCategoryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
