@@ -8,7 +8,7 @@
 import UIKit
 
 class NetworkManager {
-    private let apiKey = "da958c9edbb34fa48a1b181fbf6c3277"
+    private let apiKey = "5ab81a11e6d446f8b5571f1f26574a6c"
     static let shared = NetworkManager()
     private init() {}
     
@@ -81,6 +81,30 @@ class NetworkManager {
     
     func fetchAllRecipesOfHot (with completion: @escaping (AllRecipes) -> Void) {
         let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)"
+        
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url) { data, responce, error in
+           
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let data = data, let _ = responce else {return}
+            do{
+                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(allRecipes)
+                }
+            } catch let jsonError {
+                print(jsonError)
+            }
+        }.resume()
+    }
+    
+    func fetchVegetarianRecipes (with completion: @escaping (AllRecipes) -> Void) {
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?diet=vegetarion&number=20&apiKey=\(apiKey)"
         
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in

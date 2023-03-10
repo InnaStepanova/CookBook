@@ -9,29 +9,25 @@ import UIKit
 
 class ThirdCollectionViewCell: UICollectionViewCell {
     
-fileprivate let grayImage: UIImageView = {
-    let iv = UIImageView()
-    iv.image = UIImage(named: "grayImage2")
+    private let grayView: UIView = {
+    let iv = UIView()
+    iv.backgroundColor = UIColor(red: 0.946, green: 0.946, blue: 0.946, alpha: 1)
     iv.translatesAutoresizingMaskIntoConstraints = false
-    iv.contentMode = .scaleAspectFill
-    iv.clipsToBounds = true
     iv.layer.cornerRadius = 16
     return iv
 }()
 
-fileprivate let image: UIImageView = {
+    private let image: UIImageView = {
     let iv = UIImageView()
-    iv.image = UIImage(named: "roundLogo")
-    iv.translatesAutoresizingMaskIntoConstraints = false
-    iv.contentMode = .scaleAspectFit
-    iv.clipsToBounds = true
-    iv.layer.cornerRadius = iv.frame.height / 2
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = iv.frame.height / 2
     return iv
 }()
     
-private lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
     let label = UILabel()
-    label.text = "Chicken and Vegetable wrap"
     label.numberOfLines = 2
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -42,24 +38,28 @@ private lazy var titleLabel: UILabel = {
 override init(frame: CGRect) {
     super.init(frame: frame)
     
-    contentView.addSubview(grayImage)
+    contentView.addSubview(grayView)
     contentView.addSubview(image)
     contentView.addSubview(titleLabel)
     
-    grayImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 70).isActive = true
-    grayImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
-    grayImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-    grayImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    
+    grayView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 70).isActive = true
+    grayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
+    grayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+    grayView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     
     image.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-    image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
-    image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
-    image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -70).isActive = true
+    image.heightAnchor.constraint(equalTo: grayView.heightAnchor).isActive = true
+    image.widthAnchor.constraint(equalTo: image.heightAnchor).isActive = true
+    image.centerYAnchor.constraint(equalTo: grayView.topAnchor).isActive = true
+    image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+//    image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+//    image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
+//    image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -70).isActive = true
     
     titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
-    titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
-    titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-   // titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 40).isActive = true
+    titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+    titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
 }
 
 required init?(coder: NSCoder) {
@@ -68,6 +68,12 @@ required init?(coder: NSCoder) {
 
 override func layoutSubviews() {
     super.layoutSubviews()
-
 }
+    func set(recipe: Result) {
+        titleLabel.text = recipe.title
+        ImageManager.shared.fetchImage(from: recipe.image) { image in
+            self.image.image = image
+            self.image.layer.cornerRadius = self.image.frame.height / 2
+        }
+    }
 }
