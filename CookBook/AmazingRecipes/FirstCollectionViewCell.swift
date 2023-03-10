@@ -9,6 +9,8 @@ import UIKit
 
 class FirstCollectionViewCell: UICollectionViewCell {
     
+    var recipe: Result!
+    
     let images = ["heart", "tappedHeart"]
     var currentImageIndex = 0
     
@@ -31,14 +33,14 @@ class FirstCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var personLabel: UILabel = {
-        let label = UILabel()
-        label.text = "userLabel"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .gray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    private lazy var personLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "userLabel"
+//        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+//        label.textColor = .gray
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     
     fileprivate let heart: UIImageView = {
         let iv = UIImageView()
@@ -60,7 +62,7 @@ class FirstCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    @IBAction func buttonGrowingEffect(_ sender: UIButton) {
+    func buttonGrowingEffect(_ sender: UIButton) {
         UIView.animate(withDuration: 0.2, animations: {
             sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }, completion: { _ in
@@ -71,10 +73,10 @@ class FirstCollectionViewCell: UICollectionViewCell {
     }
 
     @objc func buttonTapped(_ sender: UIButton) {
+        DataManager.shared.save(recipe: recipe)
         currentImageIndex = (currentImageIndex + 1) % images.count
         heartButton.setImage(UIImage(named: images[currentImageIndex]), for: .normal)
         buttonGrowingEffect(heartButton)
-        print("heart was clicked")
     }
 
     override init(frame: CGRect) {
@@ -82,7 +84,7 @@ class FirstCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(image)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(personLabel)
+//        contentView.addSubview(personLabel)
         contentView.addSubview(heartButton)
         
         image.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -92,13 +94,13 @@ class FirstCollectionViewCell: UICollectionViewCell {
         
         titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 15).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: personLabel.topAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+//        titleLabel.bottomAnchor.constraint(equalTo: personLabel.topAnchor).isActive = true
         
-        personLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        personLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        personLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        personLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
+//        personLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+//        personLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        personLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        personLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
         
         heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
         heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
@@ -113,5 +115,13 @@ class FirstCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
+    }
+    
+    func set(recipe: Result) {
+        self.titleLabel.text = recipe.title
+        self.recipe = recipe
+        ImageManager.shared.fetchImage(from: recipe.image) { image in
+            self.image.image = image
+        }
     }
 }
