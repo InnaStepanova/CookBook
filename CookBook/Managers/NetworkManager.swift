@@ -15,7 +15,9 @@ enum TypeOfRequest {
 }
 
 class NetworkManager {
-    private let apiKey = "907dc69b28174f31b58dfbfdc5aa91fd"
+
+    private let apiKey = "25ba7339c0c840daa166328a5af43885"
+
     static let shared = NetworkManager()
     private init() {}
     
@@ -53,9 +55,7 @@ class NetworkManager {
             }
         }.resume()
     }
-    
-    
-    
+
     func fetchRecipe (id: Int, with completion: @escaping(Recipe) -> Void) {
         let urlString  = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=false&apiKey=\(apiKey)"
         guard let url = URL(string: urlString) else {return}

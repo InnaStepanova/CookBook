@@ -39,7 +39,16 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     let searchTextField: UITextField = {
         let field = UITextField()
         field.textAlignment = .left
-        field.borderStyle = .roundedRect
+        field.borderStyle = .none
+        field.layer.borderWidth = 1
+        field.layer.borderColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        field.layer.cornerRadius = 8
+        field.leftView = UIView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: 10,
+                                              height: 0))
+        field.leftViewMode = .always
+        field.clearButtonMode = .always
         field.placeholder = "What do you want to find?"
         field.returnKeyType = .search
         return field
@@ -124,7 +133,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         tabBarItem.title = "Main"
     
         navigationItem.hidesSearchBarWhenScrolling = false
-        
+    
         searchTextField.delegate = self
 
         firstStack.axis = .horizontal
@@ -230,6 +239,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -10),
+            searchTextField.heightAnchor.constraint(equalToConstant: 40),
             
             searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
@@ -270,6 +280,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             fourthCollectionView.heightAnchor.constraint(equalTo: fourthCollectionView.widthAnchor, multiplier: 0.6),
             fourthCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -15)
         ])
+        
+        addGesture()
+        
     }
     //func added for "see all" button
     @objc func firstButtonTapped(_ sender: UIButton) {
@@ -418,6 +431,20 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         searchTextField.text = ""
         searchTextField.endEditing(true)
         return true
+    }
+    
+// MARK: AddGesture(TapScreen)
+    
+    private func addGesture() {
+        let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapScreen)
+        let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        swipeScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(swipeScreen)
+    }
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
     }
 }
 
