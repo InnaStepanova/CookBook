@@ -9,11 +9,10 @@ import UIKit
 
 class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
-    var hotRecipes: [Result]?
+    var hotRecipes: [Result] = []
     var typeRecipes: [Result] = [] {
         didSet{
             thirdCollectionView.reloadData()
-            fourthCollectionView.reloadData()
         }
     }
     var vegetarianRecipes: [Result] = [] {
@@ -93,14 +92,16 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkManager.shared.fetchAllRecipesOfHot { hotRecipes in
+        NetworkManager.shared.fetchRecipes(parametr: "", typeOfRequest: .hot, offset: 0) { hotRecipes in
             self.hotRecipes = hotRecipes.results
             self.firstCollectionView.reloadData()
         }
-        NetworkManager.shared.fetchAllRecipesOfType(type: "Dessert") { recipes in
+        
+        NetworkManager.shared.fetchRecipes(parametr: "Dessert", typeOfRequest: .type, offset: 0) { recipes in
             self.typeRecipes = recipes.results
         }
-        NetworkManager.shared.fetchVegetarianRecipes { recipes in
+       
+        NetworkManager.shared.fetchRecipes(parametr: Resources.Strings.veg, typeOfRequest: .type, offset: 0) { recipes in
             self.vegetarianRecipes = recipes.results
         }
         
@@ -276,6 +277,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         vc.allRecipes = hotRecipes
         vc.title = "Trending now 🔥"
         vc.tabBarItem.title = "Search"
+        vc.typeOfRequest = .hot
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -284,17 +286,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         vc.allRecipes = vegetarianRecipes
         vc.title = "Vegetarian recipes"
         vc.tabBarItem.title = "Search"
+        vc.typeOfRequest = .type
+        vc.parametr = Resources.Strings.veg
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-            navigationItem.hidesSearchBarWhenScrolling = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-            navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     
@@ -303,11 +297,13 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             
             let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
             let vc = navController.topViewController as! FavouritesVC
-            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
                 vc.allRecipes = recipes.results
             }
             vc.title = "Result of search: \(text)"
             vc.tabBarItem.title = "Search"
+            vc.typeOfRequest = .search
+            vc.parametr = text
             self.tabBarController?.selectedIndex = 1
         }
         searchTextField.text = ""
@@ -318,7 +314,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         var returnValue = 0
         
         if collectionView == firstCollectionView {
-            returnValue = hotRecipes?.count ?? 0
+            returnValue = hotRecipes.count
         }
         
         if collectionView == secondCollectionView {
@@ -339,9 +335,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
 
         if collectionView == firstCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstCustomCell", for: indexPath) as! FirstCollectionViewCell
-            if let recipe = hotRecipes?[indexPath.item] {
-                cell.set(recipe: recipe)
-            }
+            let recipe = hotRecipes[indexPath.item]
+            cell.set(recipe: recipe)
+            
             return cell
             
         } else if collectionView == secondCollectionView {
@@ -371,7 +367,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == firstCollectionView {
-            guard let recipe = hotRecipes?[indexPath.item] else {return}
+            let recipe = hotRecipes[indexPath.item]
             let recipeVC = RecipeScreenViewController()
             NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
                 recipeVC.setupUI(with: recipe)
@@ -381,9 +377,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if collectionView == secondCollectionView {
             let type = meals[indexPath.item]
-            NetworkManager.shared.fetchAllRecipesOfType(type: type) { recipes in
+            NetworkManager.shared.fetchRecipes(parametr: type, typeOfRequest: .type, offset: 0, with: { recipes in
                 self.typeRecipes = recipes.results
-            }
+            })
         }
         
         if collectionView == thirdCollectionView {
@@ -410,11 +406,13 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             
             let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
             let vc = navController.topViewController as! FavouritesVC
-            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
                 vc.allRecipes = recipes.results
             }
             vc.title = "Result of search: \(text)"
             vc.tabBarItem.title = "Search"
+            vc.typeOfRequest = .search
+            vc.parametr = text
             self.tabBarController?.selectedIndex = 1
         }
         searchTextField.text = ""
