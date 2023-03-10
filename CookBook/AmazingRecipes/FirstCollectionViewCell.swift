@@ -51,7 +51,7 @@ class FirstCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    let heartButton: UIButton = {
+    lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
         button.setImage(UIImage(named: "heart"), for: .normal)

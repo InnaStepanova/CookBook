@@ -24,7 +24,7 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
         return field
     }()
     
-    let searchButton: UIButton = {
+    lazy var searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.backgroundColor = .white

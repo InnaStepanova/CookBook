@@ -13,7 +13,7 @@ class RecipeCell: UITableViewCell {
     
     var recipe: Result!
     
-    var favouriteButton: UIButton = {
+    lazy var favouriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
         button.setImage(UIImage(named: "heart"), for: .normal)
