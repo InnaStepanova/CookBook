@@ -16,7 +16,7 @@ enum TypeOfRequest {
 
 class NetworkManager {
 
-    private let apiKey = "25ba7339c0c840daa166328a5af43885"
+    private let apiKey = "a1dca82f9a364fe59d44e5b9648dcf05"
 
     static let shared = NetworkManager()
     private init() {}
