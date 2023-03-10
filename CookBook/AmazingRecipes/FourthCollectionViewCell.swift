@@ -9,13 +9,12 @@ import UIKit
 
 class FourthCollectionViewCell: UICollectionViewCell {
 
-    fileprivate let image: UIImageView = {
+    lazy var image: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "squareLogo")
+        iv.layer.cornerRadius = 16
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 16
         return iv
     }()
     
@@ -51,6 +50,13 @@ class FourthCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
+    }
+    
+    func set(recipe: Result) {
+        titleLabel.text = recipe.title
+        ImageManager.shared.fetchImage(from: recipe.image) { image in
+            self.image.image = image
+        }
     }
 }
 

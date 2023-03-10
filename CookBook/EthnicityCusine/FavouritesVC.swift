@@ -38,7 +38,7 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Search of recipes"
+//        title = "Search of recipes"
         print(view.frame.width)
         view.backgroundColor = .white
         tabBarItem.title = "Search"
