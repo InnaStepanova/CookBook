@@ -30,7 +30,7 @@ class MaineViewController: UIViewController {
         return label  
     }()
     
-    private var button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Go to Recire", for: .normal)
         button.backgroundColor = .blue

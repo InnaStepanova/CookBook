@@ -10,7 +10,7 @@ import UIKit
 final class StartViewController: UIViewController {
 
     //MARK: - StarteButton
-    var startButton: UIButton = {
+    lazy var startButton: UIButton = {
         var button = UIButton()
         button = UIButton(type: .roundedRect)
         button.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
