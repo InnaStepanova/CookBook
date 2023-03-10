@@ -11,9 +11,9 @@ class FourthCollectionViewCell: UICollectionViewCell {
 
     lazy var image: UIImageView = {
         let iv = UIImageView()
-        iv.layer.cornerRadius = 16
+        iv.layer.cornerRadius = 15
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         return iv
     }()
