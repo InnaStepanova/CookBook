@@ -396,7 +396,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         }
         
         if collectionView == fourthCollectionView {
-            let recipe = typeRecipes[indexPath.item]
+            let recipe = vegetarianRecipes[indexPath.item]
             let recipeVC = RecipeScreenViewController()
             NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
                 recipeVC.setupUI(with: recipe)
