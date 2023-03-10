@@ -63,19 +63,7 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
         setupView()
         
         searchTextField.delegate = self
-
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-            navigationItem.hidesSearchBarWhenScrolling = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-            navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
     
     private func setupView() {
         view.addSubview(favoriteView)
@@ -132,16 +120,17 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     
     // MARK: AddGesture(TapScreen)
         
-        private func addGesture() {
-            let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            view.addGestureRecognizer(tapScreen)
-            let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            swipeScreen.cancelsTouchesInView = false
-            view.addGestureRecognizer(swipeScreen)
-        }
-        @objc private func hideKeyboard() {
-            view.endEditing(true)
-        }
+    private func addGesture() {
+        let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapScreen)
+        let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        swipeScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(swipeScreen)
+    }
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
