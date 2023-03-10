@@ -18,7 +18,16 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     let searchTextField: UITextField = {
         let field = UITextField()
         field.textAlignment = .left
-        field.borderStyle = .roundedRect
+        field.borderStyle = .none
+        field.layer.borderWidth = 1
+        field.layer.borderColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        field.layer.cornerRadius = 8
+        field.leftView = UIView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: 10,
+                                              height: 0))
+        field.leftViewMode = .always
+        field.clearButtonMode = .always
         field.placeholder = "What do you want to find?"
         field.returnKeyType = .search
         return field
@@ -38,6 +47,10 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addGesture()
+        
+        
 //        title = "Search of recipes"
         print(view.frame.width)
         view.backgroundColor = .white
@@ -78,12 +91,12 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
                     searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
                     searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
                     searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -10),
+                    searchTextField.heightAnchor.constraint(equalToConstant: 40),
                     
                     searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
                     searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
                     searchButton.heightAnchor.constraint(equalTo: searchTextField.heightAnchor)
                 ])
-
     }
     
     @objc private func searchButtonPressed() {
@@ -110,6 +123,19 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
         searchTextField.endEditing(true)
         return true
     }
+    
+    // MARK: AddGesture(TapScreen)
+        
+        private func addGesture() {
+            let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+            view.addGestureRecognizer(tapScreen)
+            let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
+            swipeScreen.cancelsTouchesInView = false
+            view.addGestureRecognizer(swipeScreen)
+        }
+        @objc private func hideKeyboard() {
+            view.endEditing(true)
+        }
 }
 
 extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
