@@ -7,20 +7,62 @@
 
 import UIKit
 
+enum TypeOfRequest {
+    case search
+    case cuisine
+    case type
+    case hot
+}
+
 class NetworkManager {
-    private let apiKey = "907dc69b28174f31b58dfbfdc5aa91fd"
+
+ 
+    private let apiKey = "25ba7339c0c840daa166328a5af43885"
     static let shared = NetworkManager()
     private init() {}
     
-    func fetchRecipe (id: Int, with completion: @escaping(Recipe) -> Void) {
-<<<<<<< HEAD
-        let urlString  = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=false&apiKey=da958c9edbb34fa48a1b181fbf6c3277"
-=======
-        let urlString  = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=false&apiKey=\(apiKey)"
->>>>>>> dev
+    func fetchRecipes (parametr: String, typeOfRequest: TypeOfRequest, offset: Int, with completion: @escaping(AllRecipes) -> Void) {
+        
+        var urlString = ""
+        
+        switch typeOfRequest {
+        case .search:
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?query=\(parametr)&apiKey=\(apiKey)&number=30&offset=\(offset)"
+        case .cuisine:
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(parametr)&sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
+        case .type:
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(parametr)&apiKey=\(apiKey)&offset=\(offset)"
+        case .hot:
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
+        }
+        
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { data, responce, error in
-           
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let data = data, let _ = responce else {return}
+            do{
+                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
+                DispatchQueue.main.async {
+                    completion(allRecipes)
+                }
+            } catch let jsonError {
+                print(jsonError)
+            }
+        }.resume()
+    }
+    
+    
+    
+    func fetchRecipe (id: Int, with completion: @escaping(Recipe) -> Void) {
+        let urlString  = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=false&apiKey=\(apiKey)"
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url) { data, responce, error in
+            
             if let error = error {
                 print(error)
                 return
@@ -31,139 +73,6 @@ class NetworkManager {
                 let recipe = try JSONDecoder().decode(Recipe.self, from: data)
                 DispatchQueue.main.async {
                     completion(recipe)
-                }
-            } catch let jsonError {
-                print(jsonError)
-            }
-        }.resume()
-    }
-    
-    func fetchAllCuizineRecipe (cuisine: String, with completion: @escaping(AllRecipes) -> Void) {
-<<<<<<< HEAD
-        let urlString = " https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&number=20&apiKey=da958c9edbb34fa48a1b181fbf6c3277"
-=======
-        let urlString = " https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&number=20&apiKey=\(apiKey)"
->>>>>>> dev
-        
-        guard let url = URL(string: urlString) else {return}
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-           
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data, let _ = responce else {return}
-            do{
-                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
-                DispatchQueue.main.async {
-                    completion(allRecipes)
-                }
-            } catch let jsonError {
-                print(jsonError)
-            }
-        }.resume()
-    }
-    func fetchAllRecipesOfType (type: String, with completion: @escaping(AllRecipes) -> Void) {
-<<<<<<< HEAD
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(type) &apiKey=da958c9edbb34fa48a1b181fbf6c3277"
-=======
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(type)&apiKey=\(apiKey)"
->>>>>>> dev
-        
-        guard let url = URL(string: urlString) else {return}
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-           
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data, let _ = responce else {return}
-            do{
-                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
-                DispatchQueue.main.async {
-                    completion(allRecipes)
-                }
-            } catch let jsonError {
-                print(jsonError)
-            }
-        }.resume()
-    }
-    
-    func fetchAllRecipesOfHot (with completion: @escaping (AllRecipes) -> Void) {
-<<<<<<< HEAD
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=da958c9edbb34fa48a1b181fbf6c3277"
-=======
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)"
->>>>>>> dev
-        
-        guard let url = URL(string: urlString) else {return}
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-           
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data, let _ = responce else {return}
-            do{
-                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(allRecipes)
-                }
-            } catch let jsonError {
-                print(jsonError)
-            }
-        }.resume()
-    }
-    
-    func fetchDishesResipes (cuisine: String, with completion: @escaping (AllRecipes) -> Void) {
-<<<<<<< HEAD
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&apiKey=da958c9edbb34fa48a1b181fbf6c3277"
-=======
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&sort=popularity&apiKey=\(apiKey)"
->>>>>>> dev
-        
-        guard let url = URL(string: urlString) else {return}
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-           
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data, let _ = responce else {return}
-            do{
-                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(allRecipes)
-                }
-            } catch let jsonError {
-                print(jsonError)
-            }
-        }.resume()
-    }
-    
-    func fetcResipesOf (search: String, with completion: @escaping (AllRecipes) -> Void) {
-        let urlString = "https://api.spoonacular.com/recipes/complexSearch?query=\(search)&apiKey=da958c9edbb34fa48a1b181fbf6c3277&number=30"
-        
-        guard let url = URL(string: urlString) else {return}
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-           
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data, let _ = responce else {return}
-            do{
-                let allRecipes = try JSONDecoder().decode(AllRecipes.self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(allRecipes)
                 }
             } catch let jsonError {
                 print(jsonError)

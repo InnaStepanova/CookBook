@@ -9,7 +9,9 @@ import UIKit
 
 class FavouritesVC: UIViewController, UITextFieldDelegate {
     
-    var allRecipes: [Result]? {
+    var typeOfRequest: TypeOfRequest = .search
+    var parametr = ""
+    var allRecipes: [Result] = [] {
         didSet {
             favoriteView.recipesTableView.reloadData()
         }
@@ -57,22 +59,11 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
         tabBarItem.title = "Search"
         favoriteView.recipesTableView.dataSource = self
         favoriteView.recipesTableView.delegate = self
+        favoriteView.recipesTableView.prefetchDataSource = self
         setupView()
         
         searchTextField.delegate = self
-
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-            navigationItem.hidesSearchBarWhenScrolling = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-            navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
     
     private func setupView() {
         view.addSubview(favoriteView)
@@ -102,7 +93,8 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     @objc private func searchButtonPressed() {
         if let text = searchTextField.text {
             title = "Result of search: \(text)"
-            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+            parametr = text
+            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
                 self.allRecipes = recipes.results
             }
         }
@@ -114,7 +106,9 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text {
             title = "Result of search: \(text)"
-            NetworkManager.shared.fetcResipesOf(search: text) { recipes in
+            parametr = text
+            typeOfRequest = .search
+            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
                 self.allRecipes = recipes.results
             }
         }
@@ -126,22 +120,23 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     
     // MARK: AddGesture(TapScreen)
         
-        private func addGesture() {
-            let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            view.addGestureRecognizer(tapScreen)
-            let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            swipeScreen.cancelsTouchesInView = false
-            view.addGestureRecognizer(swipeScreen)
-        }
-        @objc private func hideKeyboard() {
-            view.endEditing(true)
-        }
+    private func addGesture() {
+        let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapScreen)
+        let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        swipeScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(swipeScreen)
+    }
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allRecipes?.count ?? 0
+        return allRecipes.count
     }
 
     func tableView(_ tableView: UITableView,
@@ -152,9 +147,9 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     
         cell.isChecked = false
         cell.favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
-        if let recipe = allRecipes?[indexPath.item] {
-            cell.set(recipe: recipe, index: indexPath.item)
-        }
+        let recipe = allRecipes[indexPath.item]
+        cell.set(recipe: recipe, index: indexPath.item)
+        
         return cell
     }
     
@@ -164,11 +159,27 @@ extension FavouritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let recipe = allRecipes?[indexPath.item] else {return}
+        let recipe = allRecipes[indexPath.item]
         let recipeVC = RecipeScreenViewController()
         NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
             recipeVC.setupUI(with: recipe)
         }
         navigationController?.pushViewController(recipeVC, animated: true)
+    }
+}
+
+extension FavouritesVC: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for index in indexPaths {
+            print(index.row)
+            if index.row >= allRecipes.count - 3 {
+                print("New request")
+                NetworkManager.shared.fetchRecipes(parametr: parametr, typeOfRequest: typeOfRequest, offset: allRecipes.count) { recipes in
+                    self.allRecipes += recipes.results
+                    tableView.reloadData()
+                }
+            }
+        }
     }
 }

@@ -25,6 +25,7 @@ enum Resources {
     }
     
     enum Strings {
+        static let veg = "vegetarian"
         enum TabBar {
             static let main = "Main"
             static let search = "Search"

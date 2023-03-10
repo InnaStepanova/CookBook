@@ -47,9 +47,11 @@ extension WorldDishesViewController: DishesCollectionDelegate {
     func presentVC(dishes: String) {
         
         let favoritesVC = FavouritesVC()
-        NetworkManager.shared.fetchDishesResipes(cuisine: dishes) { recipes in
+        NetworkManager.shared.fetchRecipes(parametr: dishes, typeOfRequest: .cuisine, offset: 0) { recipes in
             favoritesVC.allRecipes = recipes.results
         }
+        favoritesVC.typeOfRequest = .cuisine
+        favoritesVC.parametr = dishes
         favoritesVC.title = "Dishes of \(dishes)"
         navigationController?.pushViewController(favoritesVC, animated: true)
     }
