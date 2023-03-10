@@ -11,6 +11,21 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     var hotRecipes: [Result]?
     
+    let meals = ["Main course",
+                        "Side dish",
+                        "Dessert",
+                        "Appetizer",
+                        "Salad",
+                        "Bread",
+                        "Breakfast",
+                        "Soup",
+                        "Beverage",
+                        "Sauce",
+                        "Marinade",
+                        "Fingerfood",
+                        "Snack",
+                        "Drink"]
+    
     let searchTextField: UITextField = {
         let field = UITextField()
         field.textAlignment = .left
@@ -59,8 +74,6 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let proverka = DataManager.shared.fetchRecipes()
-        print("Proverka \(proverka)")
         NetworkManager.shared.fetchAllRecipesOfHot { hotRecipes in
             self.hotRecipes = hotRecipes.results
             self.firstCollectionView.reloadData()
@@ -170,22 +183,22 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.83)
+//        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.83)
         firstCollectionView.collectionViewLayout = layout
 
         let layout2 = UICollectionViewFlowLayout()
         layout2.scrollDirection = .horizontal
-        layout2.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.60)
+//        layout2.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.60)
         secondCollectionView.collectionViewLayout = layout2
 
         let layout3 = UICollectionViewFlowLayout()
         layout3.scrollDirection = .horizontal
-        layout3.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.50)
+//        layout3.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.50)
         thirdCollectionView.collectionViewLayout = layout3
 
         let layout4 = UICollectionViewFlowLayout()
         layout4.scrollDirection = .horizontal
-        layout4.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.width * 0.55)
+//        layout4.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.width * 0.55)
         fourthCollectionView.collectionViewLayout = layout4
         
 //        view.addSubview(stack)
@@ -304,20 +317,16 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         searchTextField.text = ""
         searchTextField.endEditing(true)
     }
-
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return hotRecipes?.count ?? 0
-//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var returnValue = 0
         
         if collectionView == firstCollectionView {
-            returnValue = 5
+            returnValue = hotRecipes?.count ?? 0
         }
         
         if collectionView == secondCollectionView {
-            returnValue = 15
+            returnValue = meals.count
         }
 
         if collectionView == thirdCollectionView {
@@ -329,24 +338,22 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         }
         return returnValue
     }
-
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! MyCollectionViewCell
-//
-//        if let recipe = hotRecipes?[indexPath.item] {
-//            cell.set(recipe: recipe)
-//        }
-//        return cell
-//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if collectionView == firstCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstCustomCell", for: indexPath) as! FirstCollectionViewCell
+            if let recipe = hotRecipes?[indexPath.item] {
+                cell.set(recipe: recipe)
+            }
             return cell
+            
         } else if collectionView == secondCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SecondCustomCell", for: indexPath) as! SecondCollectionViewCell
+            let meal = meals[indexPath.item]
+            cell.set(buttonTitle: meal)
             return cell
+            
         } else if collectionView == thirdCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ThirdCustomCell", for: indexPath) as! ThirdCollectionViewCell
             return cell
@@ -386,3 +393,28 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         return true
     }
 }
+
+extension AmazingViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if collectionView == secondCollectionView {
+            let categoreFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            let categoryAttributes = [NSAttributedString.Key.font : categoreFont]
+            let categoryWidth = meals[indexPath.item].size(withAttributes: categoryAttributes).width + 15
+            return CGSize(width: categoryWidth, height: collectionView.frame.height)
+        }
+        if collectionView == firstCollectionView {
+            return CGSize(width: UIScreen.main.bounds.width * 0.75, height: UIScreen.main.bounds.width * 0.83)
+        }
+        
+        if collectionView == thirdCollectionView {
+            return CGSize(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.50)
+        }
+        
+        if collectionView == fourthCollectionView {
+            return CGSize(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.width * 0.55)
+        }
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+}
+

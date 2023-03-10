@@ -8,7 +8,7 @@
 import UIKit
 
 class NetworkManager {
-    private let apiKey = "907dc69b28174f31b58dfbfdc5aa91fd"
+    private let apiKey = "da958c9edbb34fa48a1b181fbf6c3277"
     static let shared = NetworkManager()
     private init() {}
     
