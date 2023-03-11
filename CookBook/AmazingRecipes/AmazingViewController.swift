@@ -15,6 +15,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             thirdCollectionView.reloadData()
         }
     }
+    var type = "Dessert"
     var vegetarianRecipes: [Result] = [] {
         didSet{
             fourthCollectionView.reloadData()
@@ -271,10 +272,10 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         if sender == thirdSeeAllButton {
             let vc = FavouritesVC()
             vc.allRecipes = typeRecipes
-            vc.title = "Popular recipes"
+            vc.title = "Popular \(type)"
             vc.tabBarItem.title = "Search"
             vc.typeOfRequest = .type
-            vc.parametr = Resources.Strings.veg
+            vc.parametr = type
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -364,6 +365,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if collectionView == secondCollectionView {
             let type = meals[indexPath.item]
+            self.type = type
             NetworkManager.shared.fetchRecipes(parametr: type, typeOfRequest: .type, offset: 0, with: { recipes in
                 self.typeRecipes = recipes.results
             })
