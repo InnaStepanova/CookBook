@@ -9,7 +9,7 @@ import UIKit
 
 final class RecipeScreenViewController: UIViewController {
     //MARK: - Properties
-    private var recipe: Recipe!
+    private var recipe: Recipe?
     private(set) var ingredientsList: [String] = []
     private(set) var instructions: [String] = []
     private(set) var ingredients: [String] = []
@@ -23,14 +23,10 @@ final class RecipeScreenViewController: UIViewController {
         view.contentMode = .scaleAspectFit
         return view
     }()
-    private lazy var favoriteButton: UIButton = {
+    private var favoriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        if isFavorite {
-            button.setImage(UIImage(named: "tappedHeart"), for: .normal)
-        } else {
-            button.setImage(UIImage(named: "heart"), for: .normal)
-        }
+        button.setImage(UIImage(named: "heart"), for: .normal)
         button.tintColor = Resources.Colors.red
         button.backgroundColor = Resources.Colors.pink
         return button
@@ -41,6 +37,13 @@ final class RecipeScreenViewController: UIViewController {
         view.layer.cornerRadius = 16
         view.backgroundColor = .systemBackground
         return view
+    }()
+    private let recipeName: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return label
     }()
     private let timerImage: UIImageView = {
         let view = UIImageView()
@@ -100,7 +103,7 @@ final class RecipeScreenViewController: UIViewController {
         return stack
     }()
     private lazy var mainStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [cookingTimeStack, pricePerServing, separator, buttonsStack])
+        let stack = UIStackView(arrangedSubviews: [recipeName, cookingTimeStack, pricePerServing, separator, buttonsStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20)
         stack.isLayoutMarginsRelativeArrangement = true
@@ -145,8 +148,9 @@ final class RecipeScreenViewController: UIViewController {
     }
     
     @objc private func likeButtonPressed(_ sender: UIButton) {
-        isFavorite.toggle()
+        guard let recipe = recipe else { return }
         let result = Result(id: recipe.id, title: recipe.title, image: recipe.image)
+        isFavorite.toggle()
         if isFavorite {
             favoriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
             DataManager.shared.save(recipe: result)
@@ -172,13 +176,21 @@ final class RecipeScreenViewController: UIViewController {
     //MARK: - Setup UI
     func setupUI(with recipe: Recipe) {
         self.recipe = recipe
+        let result = Result(id: recipe.id, title: recipe.title, image: recipe.image)
+        print(result)
+        print(recipe.id)
+        if DataManager.shared.isRecipeInFavorite(result) {
+            isFavorite = true
+            favoriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+        }
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.topImage.image = image
         }
         guard let cookingMinutes = recipe.cookingMinutes else { return }
         guard let price = recipe.pricePerServing else { return }
         guard let instruction = recipe.instructions else { return }
-        title = recipe.title
+        title = "Let's cook!"
+        recipeName.text = recipe.title
         cookingTime.text = "\(String(describing: cookingMinutes)) minutes"
         pricePerServing.text = "Price per serving: \(String(describing: price))₽"
         ingredients = recipe.extendedIngredients.map { "\($0.original ?? "")" }
@@ -220,7 +232,7 @@ final class RecipeScreenViewController: UIViewController {
             mainStack.leadingAnchor.constraint(equalTo: sheetView.leadingAnchor),
             mainStack.topAnchor.constraint(equalTo: sheetView.topAnchor),
             mainStack.trailingAnchor.constraint(equalTo: sheetView.trailingAnchor),
-            mainStack.heightAnchor.constraint(equalTo: sheetView.heightAnchor, multiplier: 0.35),
+            mainStack.heightAnchor.constraint(equalTo: sheetView.heightAnchor, multiplier: 0.45),
             
             recipeTableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 10),
             recipeTableView.leadingAnchor.constraint(equalTo: sheetView.leadingAnchor, constant: 20),
