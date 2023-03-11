@@ -12,6 +12,7 @@ enum Tabs: Int {
     case search
     case cuisine
     case favourites
+    case toDoList
 }
 
 class TabBarController: UITabBarController{
@@ -40,11 +41,13 @@ class TabBarController: UITabBarController{
         let searchViewController = FavouritesVC()
         let cuizineCollectionViewController = WorldDishesViewController()
         let favoritesViewController = LikeRecipesViewController()
+        let toDoListViewController = ToDoListViewController()
         
         let mainNavigation = UINavigationController(rootViewController: mainViewController)
         let searchNavigation = UINavigationController(rootViewController: searchViewController)
         let cuizineNavigation = UINavigationController(rootViewController: cuizineCollectionViewController)
         let favoritesNavigation = UINavigationController(rootViewController: favoritesViewController)
+        let toDoListNavigation = UINavigationController(rootViewController: toDoListViewController)
 
         mainViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.main,
                                                      image: Resources.Image.TabBar.main,
@@ -58,12 +61,16 @@ class TabBarController: UITabBarController{
         favoritesViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.favourites,
                                                           image: Resources.Image.TabBar.favourites,
                                                           tag: Tabs.favourites.rawValue)
+        toDoListViewController.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.toDoList,
+                                                         image: Resources.Image.TabBar.toDoList,
+                                                         tag: Tabs.toDoList.rawValue)
         
         setViewControllers([
             mainNavigation,
             searchNavigation,
             cuizineNavigation,
-            favoritesNavigation
+            favoritesNavigation,
+            toDoListNavigation
         ], animated: true)
     }
 }

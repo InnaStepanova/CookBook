@@ -17,9 +17,11 @@ extension RecipeScreenViewController: UITableViewDelegate {
         if !isInToDoList(ingredient) {
             cell.accessoryType = .checkmark
             toDoList.append(ingredient)
+            DataManager.shared.save(ingredient: ingredient)
         } else {
             cell.accessoryType = .none
             toDoList.removeAll{$0 == ingredient}
+            DataManager.shared.delete(ingredient: ingredient)
         }
     }
     

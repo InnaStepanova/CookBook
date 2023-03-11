@@ -25,6 +25,9 @@ class WorldDishesViewController: UIViewController {
     }
     
     private func setupViews() {
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: UIFont.boldSystemFont(ofSize: 24)
+        ]
         view.backgroundColor = .white
         
         view.addSubview(dishesCollection)

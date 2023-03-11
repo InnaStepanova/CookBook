@@ -17,11 +17,7 @@ class RecipeCell: UITableViewCell {
     lazy var favouriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
-        if isFavorite {
-            button.setImage(UIImage(named: "tappedHeart"), for: .normal)
-        } else {
-            button.setImage(UIImage(named: "heart"), for: .normal)
-        }
+        button.setImage(UIImage(named: "heart"), for: .normal)
         button.contentMode = .scaleAspectFill
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(favouriteButtonPressed(_ :)), for: .touchUpInside)
@@ -81,6 +77,11 @@ class RecipeCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .systemBackground
+        if isFavorite {
+            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+        } else {
+            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+        }
         setupViews()
         setupConstraints()
     }
@@ -115,6 +116,10 @@ class RecipeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+    }
+    
     func configure(withImage image: UIImage, text: String) {
         cellImageView.image = image
         recipeName.text = text
@@ -126,6 +131,12 @@ class RecipeCell: UITableViewCell {
         favouriteButton.tag = recipe.id
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.cellImageView.image = image
+        }
+        if DataManager.shared.isRecipeInFavorite(recipe) {
+            isFavorite = true
+        }
+        if isFavorite {
+            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
         }
     }
 }

@@ -55,11 +55,7 @@ class FirstCollectionViewCell: UICollectionViewCell {
     lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
-        if isFavorite {
-            button.setImage(UIImage(named: "tappedHeart"), for: .normal)
-        } else {
-            button.setImage(UIImage(named: "heart"), for: .normal)
-        }
+        button.setImage(UIImage(named: "heart"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFill
         button.clipsToBounds = true
@@ -124,7 +120,11 @@ class FirstCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
+    }
+    
+    override func prepareForReuse() {
+        heartButton.setImage(UIImage(named: "heart"), for: .normal)
     }
     
     func set(recipe: Result) {
@@ -132,6 +132,10 @@ class FirstCollectionViewCell: UICollectionViewCell {
         self.recipe = recipe
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.image.image = image
+        }
+        if DataManager.shared.isRecipeInFavorite(recipe) {
+            isFavorite = true
+            heartButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
         }
     }
 }

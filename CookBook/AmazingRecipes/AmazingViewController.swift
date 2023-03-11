@@ -131,6 +131,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         view.backgroundColor = .white
         title = "Get amazing recipes for cook"
         tabBarItem.title = "Main"
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: UIFont.boldSystemFont(ofSize: 24)
+        ]
     
         navigationItem.hidesSearchBarWhenScrolling = false
     
@@ -284,6 +287,11 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         addGesture()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        firstCollectionView.reloadData()
+    }
+    
     //func added for "see all" button
     @objc func firstButtonTapped(_ sender: UIButton) {
         let vc = FavouritesVC()

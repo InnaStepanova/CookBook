@@ -13,7 +13,7 @@ class RecipeScreenTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -21,7 +21,7 @@ class RecipeScreenTableViewCell: UITableViewCell {
     
     //MARK: - Setup UI
     func configure(with ingredient: String) {
-        ingredientLabel.text = "* \(ingredient)"
+        ingredientLabel.text = ingredient
         setupConstraints()
     }
     
@@ -35,7 +35,7 @@ class RecipeScreenTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             ingredientLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             ingredientLabel.topAnchor.constraint(equalTo: topAnchor),
-            ingredientLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            ingredientLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             ingredientLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
