@@ -8,6 +8,8 @@
 import UIKit
 
 class SecondCollectionViewCell: UICollectionViewCell {
+    
+    var selectedView = 2
 
     let typeMeal: UILabel = {
         let label = UILabel()
@@ -46,5 +48,9 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
     func set(buttonTitle: String, index: Int) {
         typeMeal.text = buttonTitle
+        if index == selectedView  {
+            backgroundColor = Resources.Colors.red
+            typeMeal.textColor = .white
+        }
     }
 }
