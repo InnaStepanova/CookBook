@@ -9,6 +9,7 @@ import UIKit
 
 final class RecipeScreenViewController: UIViewController {
     //MARK: - Properties
+    private var recipe: Recipe!
     private(set) var ingredientsList: [String] = []
     private(set) var instructions: [String] = []
     private(set) var ingredients: [String] = []
@@ -145,10 +146,13 @@ final class RecipeScreenViewController: UIViewController {
     
     @objc private func likeButtonPressed(_ sender: UIButton) {
         isFavorite.toggle()
+        let result = Result(id: recipe.id, title: recipe.title, image: recipe.image)
         if isFavorite {
             favoriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+            DataManager.shared.save(recipe: result)
         } else {
             favoriteButton.setImage(UIImage(named: "heart"), for: .normal)
+            DataManager.shared.delete(recipe: result)
         }
         buttonGrowingEffect(sender)
     }
@@ -167,6 +171,7 @@ final class RecipeScreenViewController: UIViewController {
     
     //MARK: - Setup UI
     func setupUI(with recipe: Recipe) {
+        self.recipe = recipe
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.topImage.image = image
         }
