@@ -10,13 +10,18 @@ import UIKit
 class RecipeCell: UITableViewCell {
     static let identifier = "RecipeCell"
     var isChecked = false
-    
+    var isFavorite: Bool = false
+
     var recipe: Result!
     
     lazy var favouriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
-        button.setImage(UIImage(named: "heart"), for: .normal)
+        if isFavorite {
+            button.setImage(UIImage(named: "tappedHeart"), for: .normal)
+        } else {
+            button.setImage(UIImage(named: "heart"), for: .normal)
+        }
         button.contentMode = .scaleAspectFill
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(favouriteButtonPressed(_ :)), for: .touchUpInside)
@@ -25,17 +30,16 @@ class RecipeCell: UITableViewCell {
     }()
     
     @objc func favouriteButtonPressed(_ sender: UIButton) {
-        if isChecked {
-            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
-            isChecked = false
-            buttonGrowingEffect(sender)
-            DataManager.shared.delete(recipe: recipe)
-        } else {
+        isFavorite.toggle()
+        let result = Result(id: recipe.id, title: recipe.title, image: recipe.image)
+        if isFavorite {
             favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
-            isChecked = true
-            buttonGrowingEffect(sender)
-            DataManager.shared.save(recipe: recipe)
+            DataManager.shared.save(recipe: result)
+        } else {
+            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+            DataManager.shared.delete(recipe: result)
         }
+        buttonGrowingEffect(sender)
     }
     
     private func buttonGrowingEffect(_ sender: UIButton) {
