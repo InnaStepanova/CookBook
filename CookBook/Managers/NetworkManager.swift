@@ -16,7 +16,7 @@ enum TypeOfRequest {
 
 class NetworkManager {
 
-    private let apiKey = "a1dca82f9a364fe59d44e5b9648dcf05"
+    private let apiKey = "14dbe8d6c32a4fc592b0a24518a1b2b8"
 
     static let shared = NetworkManager()
     private init() {}
@@ -27,11 +27,11 @@ class NetworkManager {
         
         switch typeOfRequest {
         case .search:
-            urlString = "https://api.spoonacular.com/recipes/complexSearch?query=\(parametr)&apiKey=\(apiKey)&number=30&offset=\(offset)"
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?query=\(parametr.replacingOccurrences(of: " ", with: "+"))&apiKey=\(apiKey)&number=30&offset=\(offset)"
         case .cuisine:
-            urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(parametr)&sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(parametr.replacingOccurrences(of: " ", with: "+"))&sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
         case .type:
-            urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(parametr)&apiKey=\(apiKey)&offset=\(offset)"
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(parametr.replacingOccurrences(of: " ", with: "+"))&apiKey=\(apiKey)&offset=\(offset)"
         case .hot:
             urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
         }

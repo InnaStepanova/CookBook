@@ -10,6 +10,7 @@ import UIKit
 class FirstCollectionViewCell: UICollectionViewCell {
     
     var recipe: Result!
+    var isFavorite: Bool = false
     
     let images = ["heart", "tappedHeart"]
     var currentImageIndex = 0
@@ -73,10 +74,15 @@ class FirstCollectionViewCell: UICollectionViewCell {
     }
 
     @objc func buttonTapped(_ sender: UIButton) {
-        DataManager.shared.save(recipe: recipe)
-        currentImageIndex = (currentImageIndex + 1) % images.count
-        heartButton.setImage(UIImage(named: images[currentImageIndex]), for: .normal)
-        buttonGrowingEffect(heartButton)
+        isFavorite.toggle()
+        if isFavorite {
+            heartButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+            DataManager.shared.save(recipe: recipe)
+        } else {
+            heartButton.setImage(UIImage(named: "heart"), for: .normal)
+            DataManager.shared.delete(recipe: recipe)
+        }
+        buttonGrowingEffect(sender)
     }
 
     override init(frame: CGRect) {
@@ -114,7 +120,11 @@ class FirstCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
+    }
+    
+    override func prepareForReuse() {
+        heartButton.setImage(UIImage(named: "heart"), for: .normal)
     }
     
     func set(recipe: Result) {
@@ -122,6 +132,10 @@ class FirstCollectionViewCell: UICollectionViewCell {
         self.recipe = recipe
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.image.image = image
+        }
+        if DataManager.shared.isRecipeInFavorite(recipe) {
+            isFavorite = true
+            heartButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
         }
     }
 }

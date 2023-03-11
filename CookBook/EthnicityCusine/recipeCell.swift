@@ -10,7 +10,8 @@ import UIKit
 class RecipeCell: UITableViewCell {
     static let identifier = "RecipeCell"
     var isChecked = false
-    
+    var isFavorite: Bool = false
+
     var recipe: Result!
     
     lazy var favouriteButton: UIButton = {
@@ -25,17 +26,16 @@ class RecipeCell: UITableViewCell {
     }()
     
     @objc func favouriteButtonPressed(_ sender: UIButton) {
-        if isChecked {
-            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
-            isChecked = false
-            buttonGrowingEffect(sender)
-            DataManager.shared.delete(recipe: recipe)
-        } else {
+        isFavorite.toggle()
+        let result = Result(id: recipe.id, title: recipe.title, image: recipe.image)
+        if isFavorite {
             favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
-            isChecked = true
-            buttonGrowingEffect(sender)
-            DataManager.shared.save(recipe: recipe)
+            DataManager.shared.save(recipe: result)
+        } else {
+            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+            DataManager.shared.delete(recipe: result)
         }
+        buttonGrowingEffect(sender)
     }
     
     private func buttonGrowingEffect(_ sender: UIButton) {
@@ -77,6 +77,11 @@ class RecipeCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .systemBackground
+        if isFavorite {
+            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+        } else {
+            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+        }
         setupViews()
         setupConstraints()
     }
@@ -111,6 +116,10 @@ class RecipeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+    }
+    
     func configure(withImage image: UIImage, text: String) {
         cellImageView.image = image
         recipeName.text = text
@@ -122,6 +131,12 @@ class RecipeCell: UITableViewCell {
         favouriteButton.tag = recipe.id
         ImageManager.shared.fetchImage(from: recipe.image) { image in
             self.cellImageView.image = image
+        }
+        if DataManager.shared.isRecipeInFavorite(recipe) {
+            isFavorite = true
+        }
+        if isFavorite {
+            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
         }
     }
 }

@@ -1,47 +1,50 @@
 //
-//  LikeRecipesVC.swift
+//  ToDoListVC.swift
 //  CookBook
 //
-//  Created by Лаванда on 09.03.2023.
+//  Created by Жадаев Алексей on 11.03.2023.
 //
 
 import UIKit
 
-class LikeRecipesViewController: UIViewController {
+final class ToDoListViewController: UIViewController {
+    private var tableView = UITableView()
+    private var ingredients: [String] = []
     
-    var tableView = UITableView()
-    var recipes: [Result] = []
-    
+    //MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "My likes recipes"
-        recipes = DataManager.shared.fetchRecipes()
         setTableViewDelegates()
         configure()
         setConstraints()
-        tableView.rowHeight = 140
-        
     }
     
-    func configure() {
+    override func viewWillAppear(_ animated: Bool) {
+        ingredients = DataManager.shared.fetchIngredients()
+        tableView.reloadData()
+    }
+    
+    //MARK: - Setup UI
+    
+    private func configure() {
         navigationController?.navigationBar.titleTextAttributes = [
             .font: UIFont.boldSystemFont(ofSize: 24)
         ]
         view.addSubview(tableView)
-        view.backgroundColor = .white
-        title = "My likes recipes"
-        tabBarItem.title = "Likes"
-        tableView.register(LikeRecipeCell.self, forCellReuseIdentifier: "LikeRecipe")
+        view.backgroundColor = .systemBackground
+        title = "Ingredients to buy"
+        tabBarItem.title = "ToDo"
+        tableView.register(ToDoListCell.self, forCellReuseIdentifier: String(describing: ToDoListCell.self))
+        tableView.rowHeight = 40
     }
     
-    func setTableViewDelegates() {
+    private func setTableViewDelegates() {
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -49,41 +52,29 @@ class LikeRecipesViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    override func viewWillAppear(_ animated: Bool) {
-        recipes = DataManager.shared.fetchRecipes()
-        tableView.reloadData()
-    }
 }
 
-extension LikeRecipesViewController: UITableViewDelegate, UITableViewDataSource {
+extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipes.count
+        ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LikeRecipe") as! LikeRecipeCell
-        let recipe = recipes[indexPath.row]
-        cell.set(recipe: recipe)
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ToDoListCell.self)) as? ToDoListCell else { return UITableViewCell() }
+        let ingredient = ingredients[indexPath.row]
+        cell.set(ingredient: ingredient)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let recipe = recipes[indexPath.row]
-        let recipeVC = RecipeScreenViewController()
-        NetworkManager.shared.fetchRecipe(id: recipe.id) { recipe in
-            recipeVC.setupUI(with: recipe)
-        }
-        navigationController?.pushViewController(recipeVC, animated: true)
     }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let recipe = recipes[indexPath.row]
-            DataManager.shared.delete(recipe: recipe)
-            recipes.remove(at: indexPath.row)
+            let ingredient = ingredients[indexPath.row]
+            DataManager.shared.delete(ingredient: ingredient)
+            ingredients.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }

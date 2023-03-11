@@ -135,6 +135,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         view.backgroundColor = .white
         title = "Get amazing recipes for cook"
         tabBarItem.title = "Main"
+        navigationController?.navigationBar.titleTextAttributes = [
+            .font: UIFont.boldSystemFont(ofSize: 24)
+        ]
     
         navigationItem.hidesSearchBarWhenScrolling = false
     
@@ -281,7 +284,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             
             let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
             let vc = navController.topViewController as! FavouritesVC
-            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
+            NetworkManager.shared.fetchRecipes(parametr: text.replacingOccurrences(of: " ", with: "+"), typeOfRequest: .search, offset: 0) { recipes in
                 vc.allRecipes = recipes.results
             }
             vc.title = "Result of search: \(text)"
@@ -386,11 +389,11 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = searchTextField.text {
+        if let text = searchTextField.text?.replacingOccurrences(of: " ", with: ""){
             
             let navController = self.tabBarController?.viewControllers![1] as! UINavigationController
             let vc = navController.topViewController as! FavouritesVC
-            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
+            NetworkManager.shared.fetchRecipes(parametr: text.replacingOccurrences(of: " ", with: "+"), typeOfRequest: .search, offset: 0) { recipes in
                 vc.allRecipes = recipes.results
             }
             vc.title = "Result of search: \(text)"

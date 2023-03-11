@@ -22,6 +22,8 @@
 		17E99EC029BA39330096FFF3 /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E99EBF29BA39330096FFF3 /* SecondCollectionViewCell.swift */; };
 		17E99EC229BA394D0096FFF3 /* ThirdCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E99EC129BA394D0096FFF3 /* ThirdCollectionViewCell.swift */; };
 		17E99EC429BA39650096FFF3 /* FourthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E99EC329BA39650096FFF3 /* FourthCollectionViewCell.swift */; };
+		3523591A29BCA6AA006145B9 /* ToDoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523591929BCA6AA006145B9 /* ToDoListVC.swift */; };
+		3523591C29BCA6BA006145B9 /* ToDoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523591B29BCA6BA006145B9 /* ToDoListCell.swift */; };
 		352709DB29AFACB70061FFE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709D829AFACB70061FFE5 /* Recipe.swift */; };
 		352709DC29AFACB70061FFE5 /* LikeRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709D929AFACB70061FFE5 /* LikeRecipes.swift */; };
 		352709DD29AFACB70061FFE5 /* AllRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709DA29AFACB70061FFE5 /* AllRecipes.swift */; };
@@ -59,6 +61,8 @@
 		17E99EBF29BA39330096FFF3 /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		17E99EC129BA394D0096FFF3 /* ThirdCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdCollectionViewCell.swift; sourceTree = "<group>"; };
 		17E99EC329BA39650096FFF3 /* FourthCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthCollectionViewCell.swift; sourceTree = "<group>"; };
+		3523591929BCA6AA006145B9 /* ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListVC.swift; sourceTree = "<group>"; };
+		3523591B29BCA6BA006145B9 /* ToDoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListCell.swift; sourceTree = "<group>"; };
 		352709D829AFACB70061FFE5 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		352709D929AFACB70061FFE5 /* LikeRecipes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeRecipes.swift; sourceTree = "<group>"; };
 		352709DA29AFACB70061FFE5 /* AllRecipes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRecipes.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 				C5F3C97029AF42BD00BA6003 /* EthnicityCusine */,
 				5FE2CA3E29AE26CC009A708D /* WorldDishesModule */,
 				029AE7BF29B9EFE500060B0F /* LikeRecipes */,
+				3523591829BCA684006145B9 /* ToDoList */,
 				352709E029AFACDB0061FFE5 /* MaineViewController.swift */,
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
@@ -157,6 +162,15 @@
 				17E99EC329BA39650096FFF3 /* FourthCollectionViewCell.swift */,
 			);
 			path = AmazingRecipes;
+			sourceTree = "<group>";
+		};
+		3523591829BCA684006145B9 /* ToDoList */ = {
+			isa = PBXGroup;
+			children = (
+				3523591929BCA6AA006145B9 /* ToDoListVC.swift */,
+				3523591B29BCA6BA006145B9 /* ToDoListCell.swift */,
+			);
+			path = ToDoList;
 			sourceTree = "<group>";
 		};
 		352709D729AFACB70061FFE5 /* Models */ = {
@@ -309,6 +323,7 @@
 				C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */,
 				359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */,
 				352709DD29AFACB70061FFE5 /* AllRecipes.swift in Sources */,
+				3523591A29BCA6AA006145B9 /* ToDoListVC.swift in Sources */,
 				5FE2CA4729AE30D2009A708D /* WorldDishesCollectionViewCell.swift in Sources */,
 				17E99EBE29BA38F20096FFF3 /* FirstCollectionViewCell.swift in Sources */,
 				029AE7C129B9F00A00060B0F /* LikeRecipesVC.swift in Sources */,
@@ -325,6 +340,7 @@
 				17E99EC229BA394D0096FFF3 /* ThirdCollectionViewCell.swift in Sources */,
 				353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */,
 				352709DB29AFACB70061FFE5 /* Recipe.swift in Sources */,
+				3523591C29BCA6BA006145B9 /* ToDoListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

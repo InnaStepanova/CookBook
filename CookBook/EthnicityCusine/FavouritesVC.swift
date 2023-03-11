@@ -9,6 +9,7 @@ import UIKit
 
 class FavouritesVC: UIViewController, UITextFieldDelegate {
     
+    var isFavorite: Bool = false
     var typeOfRequest: TypeOfRequest = .search
     var parametr = ""
     var allRecipes: [Result] = [] {
@@ -91,7 +92,7 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func searchButtonPressed() {
-        if let text = searchTextField.text {
+        if let text = searchTextField.text?.replacingOccurrences(of: " ", with: "") {
             title = "Result of search: \(text)"
             parametr = text
             NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
@@ -106,9 +107,9 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text {
             title = "Result of search: \(text)"
-            parametr = text
+            parametr = text.replacingOccurrences(of: " ", with: "+")
             typeOfRequest = .search
-            NetworkManager.shared.fetchRecipes(parametr: text, typeOfRequest: .search, offset: 0) { recipes in
+            NetworkManager.shared.fetchRecipes(parametr: text.replacingOccurrences(of: " ", with: "+"), typeOfRequest: .search, offset: 0) { recipes in
                 self.allRecipes = recipes.results
             }
         }

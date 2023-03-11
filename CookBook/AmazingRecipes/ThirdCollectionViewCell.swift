@@ -28,7 +28,7 @@ class ThirdCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
     let label = UILabel()
-    label.numberOfLines = 2
+    label.numberOfLines = 3
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ override init(frame: CGRect) {
     image.centerYAnchor.constraint(equalTo: grayView.topAnchor).isActive = true
     image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
     
-    titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+    titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 5).isActive = true
     titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
     titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
 }
