@@ -9,6 +9,7 @@ import UIKit
 
 class FavouritesVC: UIViewController, UITextFieldDelegate {
     
+    var isFavorite: Bool = false
     var typeOfRequest: TypeOfRequest = .search
     var parametr = ""
     var allRecipes: [Result] = [] {

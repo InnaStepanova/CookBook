@@ -10,6 +10,7 @@ import UIKit
 class FirstCollectionViewCell: UICollectionViewCell {
     
     var recipe: Result!
+    var isFavorite: Bool = false
     
     let images = ["heart", "tappedHeart"]
     var currentImageIndex = 0
@@ -54,7 +55,11 @@ class FirstCollectionViewCell: UICollectionViewCell {
     lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .systemRed
-        button.setImage(UIImage(named: "heart"), for: .normal)
+        if isFavorite {
+            button.setImage(UIImage(named: "tappedHeart"), for: .normal)
+        } else {
+            button.setImage(UIImage(named: "heart"), for: .normal)
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFill
         button.clipsToBounds = true
@@ -73,10 +78,15 @@ class FirstCollectionViewCell: UICollectionViewCell {
     }
 
     @objc func buttonTapped(_ sender: UIButton) {
-        DataManager.shared.save(recipe: recipe)
-        currentImageIndex = (currentImageIndex + 1) % images.count
-        heartButton.setImage(UIImage(named: images[currentImageIndex]), for: .normal)
-        buttonGrowingEffect(heartButton)
+        isFavorite.toggle()
+        if isFavorite {
+            heartButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+            DataManager.shared.save(recipe: recipe)
+        } else {
+            heartButton.setImage(UIImage(named: "heart"), for: .normal)
+            DataManager.shared.delete(recipe: recipe)
+        }
+        buttonGrowingEffect(sender)
     }
 
     override init(frame: CGRect) {
