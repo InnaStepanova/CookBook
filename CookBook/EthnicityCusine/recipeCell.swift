@@ -77,11 +77,11 @@ class RecipeCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .systemBackground
-        if isFavorite {
-            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
-        } else {
-            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
-        }
+//        if isFavorite {
+//            favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
+//        } else {
+//            favouriteButton.setImage(UIImage(named: "heart"), for: .normal)
+//        }
         setupViews()
         setupConstraints()
     }
@@ -134,8 +134,6 @@ class RecipeCell: UITableViewCell {
         }
         if DataManager.shared.isRecipeInFavorite(recipe) {
             isFavorite = true
-        }
-        if isFavorite {
             favouriteButton.setImage(UIImage(named: "tappedHeart"), for: .normal)
         }
     }
