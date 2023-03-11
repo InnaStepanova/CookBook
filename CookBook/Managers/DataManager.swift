@@ -16,12 +16,13 @@ class DataManager {
     
     func  save(recipe: Result) {
         var recipes = fetchRecipes()
-        recipes.append(recipe)
-        
-        guard let data = try? JSONEncoder().encode(recipes) else {return}
-        userDefaults.set(data, forKey: recipesKey)
+        if !recipes.contains(recipe) {
+           
+            recipes.append(recipe)
+            guard let data = try? JSONEncoder().encode(recipes) else {return}
+            userDefaults.set(data, forKey: recipesKey)
+        }
     }
-    
     func  delete(recipe: Result) {
         var recipes = fetchRecipes()
         if let index = recipes.firstIndex(of: recipe) {
