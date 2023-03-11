@@ -53,9 +53,6 @@ override init(frame: CGRect) {
     image.widthAnchor.constraint(equalTo: image.heightAnchor).isActive = true
     image.centerYAnchor.constraint(equalTo: grayView.topAnchor).isActive = true
     image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-//    image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
-//    image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
-//    image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -70).isActive = true
     
     titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
     titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true

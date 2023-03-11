@@ -22,19 +22,19 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     let meals = ["Main course",
-                        "Side dish",
-                        "Dessert",
-                        "Appetizer",
-                        "Salad",
-                        "Bread",
-                        "Breakfast",
-                        "Soup",
-                        "Beverage",
-                        "Sauce",
-                        "Marinade",
-                        "Fingerfood",
-                        "Snack",
-                        "Drink"]
+                 "Side dish",
+                 "Dessert",
+                 "Appetizer",
+                 "Salad",
+                 "Bread",
+                 "Breakfast",
+                 "Soup",
+                 "Beverage",
+                 "Sauce",
+                 "Marinade",
+                 "Fingerfood",
+                 "Snack",
+                 "Drink"]
     
     let searchTextField: UITextField = {
         let field = UITextField()
@@ -89,14 +89,16 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
     let recentLabel = UILabel()
     let popularCategoryLabel = UILabel()
     
-    let seeAllButton = UIButton(type: .system)
+    let firstSeeAllButton = UIButton(type: .system)
     let secondSeeAllButton = UIButton(type: .system)
+    let thirdSeeAllButton = UIButton(type: .system)
     
     let fullString = NSMutableAttributedString(string: "Trending now ")
     let image1Attachment = NSTextAttachment()
     
     let firstStack = UIStackView()
     let secondStack = UIStackView()
+    let thirdStack = UIStackView()
 
     
     override func viewDidLoad() {
@@ -118,11 +120,13 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         scrollView.addSubview(contentView)
         contentView.addSubview(firstStack)
         firstStack.addArrangedSubview(trendingLabel)
-        firstStack.addArrangedSubview(seeAllButton)
+        firstStack.addArrangedSubview(firstSeeAllButton)
         contentView.addSubview(secondStack)
         secondStack.addArrangedSubview(recentLabel)
         secondStack.addArrangedSubview(secondSeeAllButton)
-        contentView.addSubview(popularCategoryLabel)
+        contentView.addSubview(thirdStack)
+        thirdStack.addArrangedSubview(popularCategoryLabel)
+        thirdStack.addArrangedSubview(thirdSeeAllButton)
         contentView.addSubview(firstCollectionView)
         contentView.addSubview(secondCollectionView)
         contentView.addSubview(thirdCollectionView)
@@ -141,6 +145,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         secondStack.axis = .horizontal
         secondStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        thirdStack.axis = .horizontal
+        thirdStack.translatesAutoresizingMaskIntoConstraints = false
         
         firstCollectionView.dataSource = self
         firstCollectionView.delegate = self
@@ -184,20 +191,43 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         fullString.append(image1String)
         trendingLabel.attributedText = fullString
         
-        seeAllButton.setTitle("See all", for: .normal)
-        seeAllButton.setTitleColor(.systemRed, for: .normal)
-        seeAllButton.contentMode = .scaleAspectFill
-        seeAllButton.clipsToBounds = true
-        seeAllButton.addTarget(self, action: #selector(firstButtonTapped(_ :)), for: .touchUpInside)
-        seeAllButton.translatesAutoresizingMaskIntoConstraints = false
+        firstSeeAllButton.setTitle("See all", for: .normal)
+        firstSeeAllButton.setTitleColor(.systemRed, for: .normal)
+        firstSeeAllButton.contentMode = .scaleAspectFill
+        firstSeeAllButton.clipsToBounds = true
+        firstSeeAllButton.addTarget(self, action: #selector(buttonTapped(_ :)), for: .touchUpInside)
+        firstSeeAllButton.translatesAutoresizingMaskIntoConstraints = false
         
         secondSeeAllButton.setTitle("See all", for: .normal)
         secondSeeAllButton.setTitleColor(.systemRed, for: .normal)
         secondSeeAllButton.contentMode = .scaleAspectFill
         secondSeeAllButton.clipsToBounds = true
-        secondSeeAllButton.addTarget(self, action: #selector(secondButtonTapped(_ :)), for: .touchUpInside)
+        secondSeeAllButton.addTarget(self, action: #selector(buttonTapped(_ :)), for: .touchUpInside)
         secondSeeAllButton.translatesAutoresizingMaskIntoConstraints = false
         
+        thirdSeeAllButton.setTitle("See all", for: .normal)
+        thirdSeeAllButton.setTitleColor(.systemRed, for: .normal)
+        thirdSeeAllButton.contentMode = .scaleAspectFill
+        thirdSeeAllButton.clipsToBounds = true
+        thirdSeeAllButton.addTarget(self, action: #selector(buttonTapped(_ :)), for: .touchUpInside)
+        thirdSeeAllButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        setLayout()
+        
+        view.addSubview(searchTextField)
+        view.addSubview(searchButton)
+        
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        setConstrains()
+        addGesture()
+        
+    }
+    
+    func setLayout() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         firstCollectionView.collectionViewLayout = layout
@@ -213,97 +243,38 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         let layout4 = UICollectionViewFlowLayout()
         layout4.scrollDirection = .horizontal
         fourthCollectionView.collectionViewLayout = layout4
-    
-        
-        view.addSubview(searchTextField)
-        view.addSubview(searchButton)
-        
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            
-            scrollView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 5),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
-            
-            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -10),
-            searchTextField.heightAnchor.constraint(equalToConstant: 40),
-            
-            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            searchButton.heightAnchor.constraint(equalTo: searchTextField.heightAnchor),
-            seeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            
-            firstStack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            firstStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            firstStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            
-            firstCollectionView.topAnchor.constraint(equalTo: firstStack.bottomAnchor, constant: 15),
-            firstCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            firstCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            firstCollectionView.heightAnchor.constraint(equalTo: firstCollectionView.widthAnchor, multiplier: 0.85),
-            
-            popularCategoryLabel.topAnchor.constraint(equalTo: firstCollectionView.bottomAnchor, constant: 5),
-            popularCategoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            
-            secondCollectionView.topAnchor.constraint(equalTo: popularCategoryLabel.bottomAnchor, constant: 15),
-            secondCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            secondCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            secondCollectionView.heightAnchor.constraint(equalToConstant: 40),
-            
-            thirdCollectionView.topAnchor.constraint(equalTo: secondCollectionView.bottomAnchor, constant: 15),
-            thirdCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            thirdCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            thirdCollectionView.heightAnchor.constraint(equalTo: thirdCollectionView.widthAnchor, multiplier: 0.55),
-
-            secondStack.topAnchor.constraint(equalTo: thirdCollectionView.bottomAnchor, constant: 5),
-            secondStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            secondStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            
-            secondSeeAllButton.trailingAnchor.constraint(equalTo: seeAllButton.trailingAnchor),
-
-            fourthCollectionView.topAnchor.constraint(equalTo: secondStack.bottomAnchor, constant: 5),
-            fourthCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            fourthCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            fourthCollectionView.heightAnchor.constraint(equalTo: fourthCollectionView.widthAnchor, multiplier: 0.6),
-            fourthCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -15)
-        ])
-        
-        addGesture()
-        
     }
+    
     //func added for "see all" button
-    @objc func firstButtonTapped(_ sender: UIButton) {
-        let vc = FavouritesVC()
-        vc.allRecipes = hotRecipes
-        vc.title = "Trending now 🔥"
-        vc.tabBarItem.title = "Search"
-        vc.typeOfRequest = .hot
-        navigationController?.pushViewController(vc, animated: true)
+    @objc func buttonTapped(_ sender: UIButton) {
+        if sender == firstSeeAllButton {
+            let vc = FavouritesVC()
+            vc.allRecipes = hotRecipes
+            vc.title = "Trending now 🔥"
+            vc.tabBarItem.title = "Search"
+            vc.typeOfRequest = .hot
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        if sender == secondSeeAllButton {
+            let vc = FavouritesVC()
+            vc.allRecipes = vegetarianRecipes
+            vc.title = "Vegetarian recipes"
+            vc.tabBarItem.title = "Search"
+            vc.typeOfRequest = .type
+            vc.parametr = Resources.Strings.veg
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        if sender == thirdSeeAllButton {
+            let vc = FavouritesVC()
+            vc.allRecipes = typeRecipes
+            vc.title = "Popular recipes"
+            vc.tabBarItem.title = "Search"
+            vc.typeOfRequest = .type
+            vc.parametr = Resources.Strings.veg
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
-    
-    @objc func secondButtonTapped(_ sender: UIButton) {
-        let vc = FavouritesVC()
-        vc.allRecipes = vegetarianRecipes
-        vc.title = "Vegetarian recipes"
-        vc.tabBarItem.title = "Search"
-        vc.typeOfRequest = .type
-        vc.parametr = Resources.Strings.veg
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
     
     @objc private func searchButtonPressed() {
         if let text = searchTextField.text {
@@ -469,6 +440,66 @@ extension AmazingViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.width * 0.55)
         }
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func setConstrains() {
+        NSLayoutConstraint.activate([
+            
+            scrollView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 5),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -10),
+            searchTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            searchButton.heightAnchor.constraint(equalTo: searchTextField.heightAnchor),
+            firstSeeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            
+            firstStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            firstStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            firstStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            
+            firstCollectionView.topAnchor.constraint(equalTo: firstStack.bottomAnchor, constant: 15),
+            firstCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            firstCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            firstCollectionView.heightAnchor.constraint(equalTo: firstCollectionView.widthAnchor, multiplier: 0.85),
+            
+            thirdStack.topAnchor.constraint(equalTo: firstCollectionView.bottomAnchor, constant: 15),
+            thirdStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            thirdStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            thirdSeeAllButton.trailingAnchor.constraint(equalTo: firstSeeAllButton.trailingAnchor),
+            
+            secondCollectionView.topAnchor.constraint(equalTo: thirdStack.bottomAnchor, constant: 15),
+            secondCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            secondCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            secondCollectionView.heightAnchor.constraint(equalToConstant: 40),
+            
+            thirdCollectionView.topAnchor.constraint(equalTo: secondCollectionView.bottomAnchor, constant: 15),
+            thirdCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            thirdCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            thirdCollectionView.heightAnchor.constraint(equalTo: thirdCollectionView.widthAnchor, multiplier: 0.55),
+
+            secondStack.topAnchor.constraint(equalTo: thirdCollectionView.bottomAnchor, constant: 15),
+            secondStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            secondStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            secondSeeAllButton.trailingAnchor.constraint(equalTo: firstSeeAllButton.trailingAnchor),
+
+            fourthCollectionView.topAnchor.constraint(equalTo: secondStack.bottomAnchor, constant: 15),
+            fourthCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            fourthCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            fourthCollectionView.heightAnchor.constraint(equalTo: fourthCollectionView.widthAnchor, multiplier: 0.6),
+            fourthCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -15)
+        ])
     }
 }
 
