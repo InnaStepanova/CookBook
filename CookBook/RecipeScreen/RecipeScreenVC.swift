@@ -129,6 +129,11 @@ final class RecipeScreenViewController: UIViewController {
         recipeTableView.delegate = self
         recipeTableView.dataSource = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        recipeTableView.reloadData()
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         makeButtonRound(favoriteButton)

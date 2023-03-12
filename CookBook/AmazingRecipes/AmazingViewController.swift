@@ -231,6 +231,10 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        firstCollectionView.reloadData()
+    }
+    
     func setLayout() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -332,6 +336,9 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SecondCustomCell", for: indexPath) as! SecondCollectionViewCell
             let meal = meals[indexPath.item]
             cell.set(buttonTitle: meal, index: indexPath.item)
+            if indexPath.item == 2 {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+            }
             return cell
             
         } else if collectionView == thirdCollectionView {

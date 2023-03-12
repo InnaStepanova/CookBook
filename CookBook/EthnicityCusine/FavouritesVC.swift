@@ -66,6 +66,10 @@ class FavouritesVC: UIViewController, UITextFieldDelegate {
         searchTextField.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        favoriteView.recipesTableView.reloadData()
+    }
+    
     private func setupView() {
         view.addSubview(favoriteView)
         view.addSubview(searchTextField)
