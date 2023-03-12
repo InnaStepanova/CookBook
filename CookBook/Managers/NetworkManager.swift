@@ -12,6 +12,7 @@ enum TypeOfRequest {
     case cuisine
     case type
     case hot
+    case diet
 }
 
 class NetworkManager {
@@ -34,6 +35,9 @@ class NetworkManager {
             urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(parametr.replacingOccurrences(of: " ", with: "+"))&apiKey=\(apiKey)&offset=\(offset)"
         case .hot:
             urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
+        case .diet:
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&diet=\(parametr.replacingOccurrences(of: " ", with: "+"))&apiKey=\(apiKey)&offset=\(offset)"
+        
         }
         
         guard let url = URL(string: urlString) else {return}

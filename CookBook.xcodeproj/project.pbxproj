@@ -27,10 +27,8 @@
 		3523591A29BCA6AA006145B9 /* ToDoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523591929BCA6AA006145B9 /* ToDoListVC.swift */; };
 		3523591C29BCA6BA006145B9 /* ToDoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523591B29BCA6BA006145B9 /* ToDoListCell.swift */; };
 		352709DB29AFACB70061FFE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709D829AFACB70061FFE5 /* Recipe.swift */; };
-		352709DC29AFACB70061FFE5 /* LikeRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709D929AFACB70061FFE5 /* LikeRecipes.swift */; };
 		352709DD29AFACB70061FFE5 /* AllRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709DA29AFACB70061FFE5 /* AllRecipes.swift */; };
 		352709DF29AFACCC0061FFE5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709DE29AFACCC0061FFE5 /* NetworkManager.swift */; };
-		352709E129AFACDB0061FFE5 /* MaineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352709E029AFACDB0061FFE5 /* MaineViewController.swift */; };
 		353EB41829AE646400224635 /* RecipeScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EB41729AE646400224635 /* RecipeScreenVC.swift */; };
 		353EB41A29AE648E00224635 /* RecipeScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */; };
 		359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359C619529AE9266007AED8D /* RecipeScreenVC+TableView.swift */; };
@@ -68,10 +66,8 @@
 		3523591929BCA6AA006145B9 /* ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListVC.swift; sourceTree = "<group>"; };
 		3523591B29BCA6BA006145B9 /* ToDoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListCell.swift; sourceTree = "<group>"; };
 		352709D829AFACB70061FFE5 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
-		352709D929AFACB70061FFE5 /* LikeRecipes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeRecipes.swift; sourceTree = "<group>"; };
 		352709DA29AFACB70061FFE5 /* AllRecipes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRecipes.swift; sourceTree = "<group>"; };
 		352709DE29AFACCC0061FFE5 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		352709E029AFACDB0061FFE5 /* MaineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaineViewController.swift; sourceTree = "<group>"; };
 		353EB41729AE646400224635 /* RecipeScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreenVC.swift; sourceTree = "<group>"; };
 		353EB41929AE648E00224635 /* RecipeScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreenTableViewCell.swift; sourceTree = "<group>"; };
 		359C619529AE9266007AED8D /* RecipeScreenVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeScreenVC+TableView.swift"; sourceTree = "<group>"; };
@@ -133,7 +129,6 @@
 				5FE2CA3E29AE26CC009A708D /* WorldDishesModule */,
 				029AE7BF29B9EFE500060B0F /* LikeRecipes */,
 				3523591829BCA684006145B9 /* ToDoList */,
-				352709E029AFACDB0061FFE5 /* MaineViewController.swift */,
 				02AD8B5A29AB6C2C0042DAAC /* AppDelegate.swift */,
 				02AD8B5C29AB6C2C0042DAAC /* SceneDelegate.swift */,
 				02AD8B5E29AB6C2C0042DAAC /* TabBarController.swift */,
@@ -183,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				352709D829AFACB70061FFE5 /* Recipe.swift */,
-				352709D929AFACB70061FFE5 /* LikeRecipes.swift */,
 				352709DA29AFACB70061FFE5 /* AllRecipes.swift */,
 			);
 			path = Models;
@@ -315,7 +309,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				352709DC29AFACB70061FFE5 /* LikeRecipes.swift in Sources */,
 				17E99EC029BA39330096FFF3 /* SecondCollectionViewCell.swift in Sources */,
 				5FE2CA4029AE2718009A708D /* WorldDishesViewController.swift in Sources */,
 				5FE2CA4529AE30A0009A708D /* WorldDishesCollectionView.swift in Sources */,
@@ -326,7 +319,6 @@
 				17ACD23429BD2F3900186F3B /* CustomLabelClass.swift in Sources */,
 				C5F3C96F29AF42AF00BA6003 /* CusineByEthnicity.swift in Sources */,
 				02AD8B6F29ACDA510042DAAC /* Resources.swift in Sources */,
-				352709E129AFACDB0061FFE5 /* MaineViewController.swift in Sources */,
 				029AE7BE29B9E01D00060B0F /* DataManager.swift in Sources */,
 				C5F3C97429AF615200BA6003 /* recipeCell.swift in Sources */,
 				359C619629AE9266007AED8D /* RecipeScreenVC+TableView.swift in Sources */,

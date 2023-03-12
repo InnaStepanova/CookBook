@@ -9,6 +9,19 @@ import UIKit
 
 class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
+    var hotRecipes: [Result] = []
+    var typeRecipes: [Result] = [] {
+        didSet{
+            thirdCollectionView.reloadData()
+        }
+    }
+    var type = "Dessert"
+    var vegetarianRecipes: [Result] = [] {
+        didSet{
+            fourthCollectionView.reloadData()
+        }
+    }
+    
     let meals = ["Main course",
                  "Side dish",
                  "Dessert",
@@ -112,8 +125,8 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         NetworkManager.shared.fetchRecipes(parametr: "Dessert", typeOfRequest: .type, offset: 0) { recipes in
             self.typeRecipes = recipes.results
         }
-        
-        NetworkManager.shared.fetchRecipes(parametr: Resources.Strings.veg, typeOfRequest: .type, offset: 0) { recipes in
+       
+        NetworkManager.shared.fetchRecipes(parametr: Resources.Strings.veg, typeOfRequest: .diet, offset: 0) { recipes in
             self.vegetarianRecipes = recipes.results
         }
         
@@ -213,10 +226,10 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         if sender == thirdSeeAllButton {
             let vc = FavouritesVC()
             vc.allRecipes = typeRecipes
-            vc.title = "Popular recipes"
+            vc.title = "Popular \(type)"
             vc.tabBarItem.title = "Search"
             vc.typeOfRequest = .type
-            vc.parametr = Resources.Strings.veg
+            vc.parametr = type
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -306,6 +319,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if collectionView == secondCollectionView {
             let type = meals[indexPath.item]
+            self.type = type
             NetworkManager.shared.fetchRecipes(parametr: type, typeOfRequest: .type, offset: 0, with: { recipes in
                 self.typeRecipes = recipes.results
             })
