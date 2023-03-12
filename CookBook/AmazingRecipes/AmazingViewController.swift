@@ -9,19 +9,6 @@ import UIKit
 
 class AmazingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
-    var hotRecipes: [Result] = []
-    var typeRecipes: [Result] = [] {
-        didSet{
-            thirdCollectionView.reloadData()
-        }
-    }
-    var type = "Dessert"
-    var vegetarianRecipes: [Result] = [] {
-        didSet{
-            fourthCollectionView.reloadData()
-        }
-    }
-    
     let meals = ["Main course",
                  "Side dish",
                  "Dessert",
@@ -43,6 +30,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             thirdCollectionView.reloadData()
         }
     }
+    var type = "Dessert"
     var vegetarianRecipes: [Result] = [] {
         didSet{
             fourthCollectionView.reloadData()
