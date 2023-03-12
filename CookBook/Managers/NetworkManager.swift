@@ -12,11 +12,12 @@ enum TypeOfRequest {
     case cuisine
     case type
     case hot
+    case diet
 }
 
 class NetworkManager {
 
-    private let apiKey = "907dc69b28174f31b58dfbfdc5aa91fd"
+    private let apiKey = "5ab81a11e6d446f8b5571f1f26574a6c"
 
     static let shared = NetworkManager()
     private init() {}
@@ -34,6 +35,9 @@ class NetworkManager {
             urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&type=\(parametr.replacingOccurrences(of: " ", with: "+"))&apiKey=\(apiKey)&offset=\(offset)"
         case .hot:
             urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&apiKey=\(apiKey)&offset=\(offset)"
+        case .diet:
+            urlString = "https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=20&diet=\(parametr.replacingOccurrences(of: " ", with: "+"))&apiKey=\(apiKey)&offset=\(offset)"
+        
         }
         
         guard let url = URL(string: urlString) else {return}

@@ -113,7 +113,7 @@ class AmazingViewController: UIViewController, UICollectionViewDataSource, UICol
             self.typeRecipes = recipes.results
         }
        
-        NetworkManager.shared.fetchRecipes(parametr: Resources.Strings.veg, typeOfRequest: .type, offset: 0) { recipes in
+        NetworkManager.shared.fetchRecipes(parametr: Resources.Strings.veg, typeOfRequest: .diet, offset: 0) { recipes in
             self.vegetarianRecipes = recipes.results
         }
         
